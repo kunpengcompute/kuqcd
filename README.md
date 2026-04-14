@@ -136,6 +136,6 @@ sh run.sh
 
 本项目功能和文档正在持续更新和完善中，建议您关注最新版本。
 
-- **问题反馈**：通过 [【Issues】](https://atomgit.com/kunpengcompute/kupl/issues)提交问题。
-- **社区互动**：通过 [【讨论】](https://atomgit.com/kunpengcompute/kupl/discussions)参与交流。
+- **问题反馈**：通过 [【Issues】](https://atomgit.com/kunpengcompute/kuqcd/issues)提交问题。
+- **社区互动**：通过 [【讨论】](https://atomgit.com/kunpengcompute/kuqcd/discussions)参与交流。
 - **技术专栏**：通过 [【鲲鹏社区】](https://www.hikunpeng.com/developer/techArticles) 获取技术文章，如系列化教程、优秀实践等。
