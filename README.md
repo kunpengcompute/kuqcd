@@ -27,35 +27,29 @@ tar xvf HPCKit_26.0.RC1_Linux-aarch64.tar.gz
 ```
 sh HPCKit_26.0.RC1_Linux-aarch64/install.sh -y --prefix=[HPCKit安装目录]
 ```
-### 3. [设置环境变量](https://www.hikunpeng.com/document/detail/zh/kunpenghpcs/hpckit/instg/KunpengHPCKit_install_014.html)
-#### 加载 module
+
+### 3. 安装编译所需依赖
+
+安装 cmake
+```
+yum install cmake
+```
+
+### 4.KuQCD编译安装
+KuDNN依赖Bisheng/GCC编译器、HMPI和KUPL，需要预先加载，具体版本号根据HPCKit实际情况调整。这里以26.0.RC1版本HPCKit为例。
+
+#### Bisheng编译KuDNN
+##### 加载 module
 ```
 module use [HPCKit安装目录]/HPCKit/latest/modulefiles
 ```
 
-#### 加载编译器环境变量
-确认您需要的编译器类型（GCC 或 Bisheng），在终端执行相应的加载命令：
-- 若使用 GCC（编译器版本号根据实际情况调整）：
-```
-module load gcc/compiler12.3.1/gccmodule
-```
-- 若使用 BiSheng（编译器版本号根据实际情况调整）：
+##### 加载编译器环境变量（编译器版本号根据实际情况调整）
 ```
 module load bisheng/compiler5.1.0.2/bishengmodule
 ```
 
-#### 加载HMPI环境变量
-- 若使用 GCC（HMPI版本号根据实际情况调整）：
-```
-module load gcc/hmpi26.0.RC1/release
-
-export CPATH=[HPCKit安装目录]/HPCKit/latest/hmpi/gcc/release/hmpi/include:$CPATH
-
-export LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/hmpi/gcc/release/hmpi/lib:$LIBRARY_PATH
-
-export LD_LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/hmpi/gcc/release/hmpi/lib:$LD_LIBRARY_PATH
-```
-- 若使用 BiSheng（HMPI版本号根据实际情况调整）：
+##### 加载HMPI环境变量（HMPI版本号根据实际情况调整）
 ```
 module load bisheng/hmpi26.0.RC1/release
 
@@ -66,34 +60,57 @@ export LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/hmpi/bisheng/release
 export LD_LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/hmpi/bisheng/release/hmpi/lib:$LD_LIBRARY_PATH
 ```
 
-#### 加载KUPL环境变量
-- 若使用 GCC（KUPL版本号根据实际情况调整）：
-```
-module load gcc/kupl26.0.RC1/release
-```
-- 若使用 BiSheng（KUPL版本号根据实际情况调整）：
+##### 加载KUPL环境变量（KUPL版本号根据实际情况调整）
 ```
 module load bisheng/kupl26.0.RC1/release
 ```
 
-### 4. 安装编译所需依赖
-
-安装 cmake
-```
-yum install cmake
-```
-### 5. 编译
-#### 编译KuQCD源码
-在终端执行相应的编译命令：
+##### 编译KuQCD源码
+在KuQCD主目录执行相应的编译命令：
 ```
 sh build.sh
 ```
+执行完毕后，会在KuQCD主目录创建build目录并将编译后得到的KuQCD动态库放入该build目录中。
+
+#### GCC编译KuDNN
+##### 加载 module
+```
+module use [HPCKit安装目录]/HPCKit/latest/modulefiles
+```
+
+##### 加载编译器环境变量（编译器版本号根据实际情况调整）
+```
+module load gcc/compiler12.3.1/gccmodule
+```
+
+##### 加载HMPI环境变量（HMPI版本号根据实际情况调整）
+```
+module load gcc/hmpi26.0.RC1/release
+
+export CPATH=[HPCKit安装目录]/HPCKit/latest/hmpi/gcc/release/hmpi/include:$CPATH
+
+export LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/hmpi/gcc/release/hmpi/lib:$LIBRARY_PATH
+
+export LD_LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/hmpi/gcc/release/hmpi/lib:$LD_LIBRARY_PATH
+```
+
+##### 加载KUPL环境变量（KUPL版本号根据实际情况调整）
+```
+module load gcc/kupl26.0.RC1/release
+```
+
+##### 编译KuQCD源码
+在KuQCD主目录执行相应的编译命令：
+```
+sh build.sh
+```
+执行完毕后，会在KuQCD主目录创建build目录并将编译后得到的KuQCD动态库放入该build目录中。
+
+### 5. 测试
 #### 编译运行测试程序(GCC)
 在已经编译了KuQCD源码后，在KuQCD主目录执行相应的命令：
 ```
 cd test
-
-module unload bisheng/hmpi26.0.RC1/release
 
 module load gcc/hmpi26.0.RC1/release
 
@@ -105,8 +122,6 @@ sh run.sh
 在已经编译了KuQCD源码后，在KuQCD主目录执行相应的命令：
 ```
 cd test
-
-module unload gcc/hmpi26.0.RC1/release
 
 module load bisheng/hmpi26.0.RC1/release
 
