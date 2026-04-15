@@ -38,7 +38,7 @@ yum install cmake
 ### 4.KuQCD编译安装
 KuDNN依赖Bisheng/GCC编译器、HMPI和KUPL，需要预先加载，具体版本号根据HPCKit实际情况调整。这里以26.0.RC1版本HPCKit为例。
 
-#### Bisheng编译KuDNN
+#### （1）Bisheng编译KuDNN
 ##### 加载 module
 ```
 module use [HPCKit安装目录]/HPCKit/latest/modulefiles
@@ -72,7 +72,7 @@ sh build.sh
 ```
 执行完毕后，会在KuQCD主目录创建build目录并将编译后得到的KuQCD动态库放入该build目录中。
 
-#### GCC编译KuDNN
+#### （2）GCC编译KuDNN
 ##### 加载 module
 ```
 module use [HPCKit安装目录]/HPCKit/latest/modulefiles
@@ -107,7 +107,7 @@ sh build.sh
 执行完毕后，会在KuQCD主目录创建build目录并将编译后得到的KuQCD动态库放入该build目录中。
 
 ### 5. 测试
-#### 编译运行测试程序(GCC)
+#### （1）编译运行测试程序(GCC)
 在已经编译了KuQCD源码后，在KuQCD主目录执行相应的命令：
 ```
 cd test
@@ -118,7 +118,7 @@ sh build.sh
 
 sh run.sh
 ```
-#### 编译运行测试程序(BiSheng)
+#### （2）编译运行测试程序(BiSheng)
 在已经编译了KuQCD源码后，在KuQCD主目录执行相应的命令：
 ```
 cd test
