@@ -1,20 +1,20 @@
 # KUQCD
 
-## RELEASE-NOTES
-- [2026/04] KuQCD 项目首次上线，支持HISQ dslash的Multishift CG求解器。
+## 🔥RELEASE-NOTES
+- [2026/03] KuQCD 项目首次上线，支持HISQ dslash的Multishift CG求解器。
 
-## 概述
+## 🚀概述
 
 鲲鹏量子格点色动力学加速库（Kunpeng Unified Lattice Quantum Chromodynamics Library，以下简称KuQCD）是基于鲲鹏平台的格点量子色动力学加速库，采用C/C++实现，目前仅支持在鲲鹏920新型号上使用，依赖KUPL，支持毕昇编译器和gcc编译器。本加速库提供inverter等LQCD领域基础功能模块，可选不同求解算法和dslash，充分发挥鲲鹏处理器硬件特性，提供高性能基础接口。
 
-## 版本配套
+## 📝版本配套
 
 - 运行平台
     - 鲲鹏 920 专业版
 - 系统规格
     - openEuler 22.03（LTS-SP4）AArch64
 
-## 编译安装
+## ⚡️编译安装
 
 ### 1. [获取 HPCKit 软件包](https://www.hikunpeng.com/document/detail/zh/kunpenghpcs/hpckit/instg/KunpengHPCKit_install_007.html)
 > https://www.hikunpeng.com/developer/hpc/hpckit-download
@@ -114,13 +114,13 @@ sh build.sh
 
 sh run.sh
 ```
-## 学习教程
+## 📖学习教程
 
 若您已学习编译安装，对本项目有一定认知，并希望深入了解和体验项目，请访问下述详细教程。
 
 [KuQCD开发指南](https://www.hikunpeng.com/document/detail/zh/kunpenghpcs/hpckit/devg/KunpengHPCKit_developer_211.html): 介绍了 KuQCD 中基本数据结构（包括时空格点和格点场），以及求解器相关函数。
 
-## 目录结构
+## 🔍目录结构
 
 ```
 ├── include                            # 项目工程头文件
@@ -132,10 +132,10 @@ sh run.sh
 └── README.md                          # readme
 ```
 
-## 联系我们
+## 🤝联系我们
 
 本项目功能和文档正在持续更新和完善中，建议您关注最新版本。
 
 - **问题反馈**：通过 [【Issues】](https://atomgit.com/kunpengcompute/kuqcd/issues)提交问题。
-- **社区互动**：通过 [【讨论】](https://atomgit.com/kunpengcompute/kuqcd/discussions)参与交流。
+- **社区互动**：通过 [【鲲鹏论坛（HPC专区）】](https://www.hikunpeng.com/forum/forum-0187135482144798003-1.html)参与交流。
 - **技术专栏**：通过 [【鲲鹏社区】](https://www.hikunpeng.com/developer/techArticles) 获取技术文章，如系列化教程、优秀实践等。
