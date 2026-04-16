@@ -28,17 +28,35 @@ tar xvf HPCKit_26.0.RC1_Linux-aarch64.tar.gz
 sh HPCKit_26.0.RC1_Linux-aarch64/install.sh -y --prefix=[HPCKit安装目录]
 ```
 
-### 3. 安装编译所需依赖
+### 3. 其他前置条件
+已配置yum源。执行以下命令检查节点YUM源是否已配置，确保回显中有OS对应的YUM源。
+```
+yum list | grep kernel
+```
 
+已安装module工具。
+执行以下命令检查是否已安装module工具。
+```
+yum list installed | grep environment-modules.aarch64
+```
+回显有如下信息说明已安装module工具。
+```
+environment-modules.aarch64                        5.0.1-3.oe2203sp1                @OS
+```
+如果未安装module工具，执行以下命令安装，并加载环境变量。
+```
+yum install -y environment-modules
+source /etc/profile.d/modules.sh
+```
 安装 cmake
 ```
 yum install cmake
 ```
 
 ### 4.KuQCD编译安装
-KuDNN依赖BiSheng/GCC编译器、HMPI和KUPL，需要预先加载，具体版本号根据HPCKit实际情况调整。这里以26.0.RC1版本HPCKit为例。
+KuQCD依赖BiSheng/GCC编译器、HMPI和KUPL，需要预先加载，具体版本号根据HPCKit实际情况调整。这里以26.0.RC1版本HPCKit为例。
 
-#### （1）BiSheng编译KuDNN
+#### （1）BiSheng编译KuQCD
 ##### 加载 module
 ```
 module use [HPCKit安装目录]/HPCKit/latest/modulefiles
@@ -55,9 +73,9 @@ module load bisheng/hmpi26.0.RC1/release
 
 export CPATH=[HPCKit安装目录]/HPCKit/latest/hmpi/bisheng/release/hmpi/include:$CPATH
 
-export LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/hmpi/bisheng/release/hmpi/lib:$LIBRARY_PATH
+export LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/bisheng/release/hmpi/lib:$LIBRARY_PATH
 
-export LD_LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/hmpi/bisheng/release/hmpi/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/bisheng/release/hmpi/lib:$LD_LIBRARY_PATH
 ```
 
 ##### 加载KUPL环境变量（KUPL版本号根据实际情况调整）
@@ -72,7 +90,7 @@ sh build.sh
 ```
 执行完毕后，会在KuQCD主目录创建build目录并将编译后得到的KuQCD动态库放入该build目录中。
 
-#### （2）GCC编译KuDNN
+#### （2）GCC编译KuQCD
 ##### 加载 module
 ```
 module use [HPCKit安装目录]/HPCKit/latest/modulefiles
@@ -89,9 +107,9 @@ module load gcc/hmpi26.0.RC1/release
 
 export CPATH=[HPCKit安装目录]/HPCKit/latest/hmpi/gcc/release/hmpi/include:$CPATH
 
-export LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/hmpi/gcc/release/hmpi/lib:$LIBRARY_PATH
+export LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/gcc/release/hmpi/lib:$LIBRARY_PATH
 
-export LD_LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/hmpi/gcc/release/hmpi/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/gcc/release/hmpi/lib:$LD_LIBRARY_PATH
 ```
 
 ##### 加载KUPL环境变量（KUPL版本号根据实际情况调整）
