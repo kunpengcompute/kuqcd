@@ -15,9 +15,9 @@ int main(int argc, char** argv)
     int flag = MPI_Init_thread(&argc, &argv, required, &provided);
     bool is_pass = TestCGMPC<float, 1, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>(KUQCD_NORMAL_ORDER);
     if (is_pass) {
-        printf("1 tests ran, 1 tests PASSED\n");   
+        printf("1 tests ran, 1 tests PASSED\n");
     } else {
-        printf("1 tests ran, 1 tests FAILED\n");  
+        printf("1 tests ran, 1 tests FAILED\n");
     }
 
     MPI_Finalize();
@@ -52,7 +52,7 @@ bool TestCGMPC(const KuQCDGaugeOrder gauge_order)
     site_subset = KUQCD_ALL;
     Gagugeoptions.site_subset = site_subset;
     Gagugeoptions.halo_depth = haloDepthGauge;
-    
+
     double shifts[num_shift];
     shifts[0] = 3.671676313381e-05;
     FILE* fp;

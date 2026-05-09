@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -23,9 +23,12 @@ class Inverter {
 public:
     KuQCDInverterType inverterType;
     Dirac<VecT> *dirac = nullptr;
-    Inverter(KuQCDInverterType it, Dirac<VecT> *dirac_) : inverterType(it) {dirac = dirac_;}
+    Inverter(KuQCDInverterType it, Dirac<VecT> *dirac_) : inverterType(it)
+    {
+        dirac = dirac_;
+    }
     virtual ~Inverter() {};
-    virtual int Invert(int noShifts, T shifts[], const VecT & src, VecT *sol[], const double tol, int maxIters) = 0;
+    virtual int Invert(int noShifts, T shifts[], const VecT &src, VecT *sol[], const double tol, int maxIters) = 0;
 };
 
 } // namespace kuqcd

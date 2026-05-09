@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -19,10 +19,11 @@
 
 namespace kuqcd {
 
-std::string Trim(const std::string& s)
+std::string Trim(const std::string &s)
 {
     size_t first = s.find_first_not_of(" \t");
-    if (first == std::string::npos) return "";
+    if (first == std::string::npos)
+        return "";
     size_t last = s.find_last_not_of(" \t");
     return s.substr(first, (last - first + 1));
 }
@@ -38,10 +39,9 @@ void CmdLineParam::ReadParam()
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    if(rank == 0) {
-        std::map<std::string, int*> variables = {
-            {"gridx", &gridx}, {"gridy", &gridy}, {"gridz", &gridz}, {"gridt", &gridt}
-        };
+    if (rank == 0) {
+        std::map<std::string, int *> variables = {
+            {"gridx", &gridx}, {"gridy", &gridy}, {"gridz", &gridz}, {"gridt", &gridt}};
 
         std::string line;
         while (getline(std::cin, line)) {
@@ -63,10 +63,11 @@ void CmdLineParam::ReadParam()
             try {
                 int value = stoi(value_str);
                 *(it->second) = value;
-            } catch (const std::invalid_argument& e) {
+            } catch (const std::invalid_argument &e) {
                 std::cerr << "invalid number '" << value_str << "' corresponding variable '" << key << "'" << std::endl;
-            } catch (const std::out_of_range& e) {
-                std::cerr << "number out of range '" << value_str << "' corresponding variable '" << key << "'" << std::endl;
+            } catch (const std::out_of_range &e) {
+                std::cerr << "number out of range '" << value_str << "' corresponding variable '" << key << "'"
+                          << std::endl;
             }
         }
 
@@ -82,4 +83,4 @@ void CmdLineParam::ReadParam()
     MPI_Bcast(&gridt, 1, MPI_INT, 0, MPI_COMM_WORLD);
 }
 
-}
+} // namespace kuqcd

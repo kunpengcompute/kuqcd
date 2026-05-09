@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -233,4 +233,4 @@ std::ostream &operator<<(std::ostream &os, const Position &pos)
     return os;
 }
 
-}  // namespace kuqcd
+} // namespace kuqcd

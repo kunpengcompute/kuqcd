@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -11,7 +11,6 @@
  */
 #ifndef INDEX_UTILS_H
 #define INDEX_UTILS_H
-
 
 #include "space_time.h"
 
@@ -38,8 +37,8 @@ inline unsigned int GetIndex(const Position &pos, const Lattice &lat)
 }
 
 // get (CB) supper lattice position from (CB) sub lattice position
-Position GetSupPosFromSubPos(
-    const Position &pos, const Lattice &subLat, const std::array<unsigned short, 4> &gridDim, const int myRank);
+Position GetSupPosFromSubPos(const Position &pos, const Lattice &subLat, const std::array<unsigned short, 4> &gridDim,
+                             const int myRank);
 
 // get (CB) sub lattice position from (CB) supper lattice position
 Position GetSubPosFromSupPos(const Position &pos, const Lattice &subLat);
@@ -55,7 +54,7 @@ Position GetFullPosFromBulkPos(const Position &pos, int haloDepth, const std::ar
 
 // get supper lattice index from sub lattice index, do not consider site_subset
 unsigned int GetSupIdxFromSubIdx(const unsigned int i, const Lattice &subLat, const Lattice &supLat,
-    const std::array<unsigned short, 4> &gridDim, const int myRank);
+                                 const std::array<unsigned short, 4> &gridDim, const int myRank);
 
 // get sub lattice index from supper lattice index, do not consider site_subset
 unsigned int GetSubIdxFromSupIdx(const unsigned int i, const Lattice &subLat, const Lattice &supLat);
@@ -73,8 +72,8 @@ inline unsigned int GetCBIdx(const unsigned int i)
 unsigned int GetRankFromSupIdx(const unsigned int i, const Lattice &subLat, const Lattice &supLat);
 
 // get rank from supper lattice position
-unsigned int GetRankFromSupPos(
-    const Position &pos, const Lattice &subLat, const std::array<unsigned short, 4> &gridDim);
+unsigned int GetRankFromSupPos(const Position &pos, const Lattice &subLat,
+                               const std::array<unsigned short, 4> &gridDim);
 
 // get buffer index from sub lattice position, nearest neighbor
 unsigned int GetBufIdx1(const Position &pos, const int dir, const Lattice &lat);
@@ -82,6 +81,6 @@ unsigned int GetBufIdx1(const Position &pos, const int dir, const Lattice &lat);
 // get buffer index from sub lattice position, next next nearest neighbor
 unsigned int GetBufIdx3(const Position &pos, const int dir, const Lattice &lat);
 
-}  // namespace kuqcd
+} // namespace kuqcd
 
 #endif

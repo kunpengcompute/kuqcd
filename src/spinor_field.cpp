@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -22,11 +22,13 @@ namespace kuqcd {
 
 template <typename T, int Nbatch, int Ns>
 SpinorField<T, Nbatch, Ns>::SpinorField(const SpinorField<T, Nbatch, Ns> &spinor) : LatticeField<SpinorT>(spinor)
-{}
+{
+}
 
 template <typename T, int Nbatch, int Ns>
 SpinorField<T, Nbatch, Ns>::SpinorField(LattBase &latBase) : LatticeField<SpinorT>(latBase, Ns * Nbatch * 6)
-{}
+{
+}
 
 template <typename T, int Nbatch, int Ns>
 ColorSpinor<T, Nbatch> SpinorField<T, Nbatch, Ns>::GetSpinorCopy(size_t i, int ns) const
@@ -93,9 +95,8 @@ SpinorField<T, Nbatch, Ns> SpinorField<T, Nbatch, Ns>::operator*(T scalar)
 }
 
 template <typename T, int Nbatch, int Ns>
-SpinorField<T, Nbatch, Ns>& SpinorField<T, Nbatch, Ns>::operator-=(const SpinorField<T, Nbatch, Ns> &vec1)
+SpinorField<T, Nbatch, Ns> &SpinorField<T, Nbatch, Ns>::operator-=(const SpinorField<T, Nbatch, Ns> &vec1)
 {
-
     for (size_t i = 0; i < vec1.latBase.lenBulk; ++i) {
         for (int ns = 0; ns < Ns; ++ns) {
             for (int nc = 0; nc < 3; ++nc) {
@@ -117,7 +118,8 @@ SpinorField<T, Nbatch, Ns> SpinorField<T, Nbatch, Ns>::operator+(const SpinorFie
         for (int ns = 0; ns < Ns; ++ns) {
             for (int nc = 0; nc < 3; ++nc) {
                 for (int j = 0; j < (Nbatch << 1); ++j) {
-                    res.data[ns + Ns * i].c[nc].z[j] = this->data[ns + Ns * i].c[nc].z[j] + vec1.data[ns + Ns * i].c[nc].z[j];
+                    res.data[ns + Ns * i].c[nc].z[j] =
+                        this->data[ns + Ns * i].c[nc].z[j] + vec1.data[ns + Ns * i].c[nc].z[j];
                 }
             }
         }
@@ -132,8 +134,9 @@ void Axmy(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T 
     for (size_t i = 0; i < y.latBase.lenBulk; ++i) {
         for (int ns = 0; ns < Ns; ++ns) {
             for (int nc = 0; nc < 3; ++nc) {
-                for (int j = 0; j < 2*Nbatch; ++j) {
-                    y.data[ns + Ns * i].c[nc].z[j] = a * x.data[ns + Ns * i].c[nc].z[j] - y.data[ns + Ns * i].c[nc].z[j];
+                for (int j = 0; j < 2 * Nbatch; ++j) {
+                    y.data[ns + Ns * i].c[nc].z[j] =
+                        a * x.data[ns + Ns * i].c[nc].z[j] - y.data[ns + Ns * i].c[nc].z[j];
                 }
             }
         }
@@ -147,7 +150,7 @@ void Axpy(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T 
     for (size_t i = 0; i < y.latBase.lenBulk; ++i) {
         for (int ns = 0; ns < Ns; ++ns) {
             for (int nc = 0; nc < 3; ++nc) {
-                for (int j = 0; j < 2*Nbatch; ++j) {
+                for (int j = 0; j < 2 * Nbatch; ++j) {
                     y.data[ns + Ns * i].c[nc].z[j] += a * x.data[ns + Ns * i].c[nc].z[j];
                 }
             }
@@ -162,7 +165,7 @@ void Ymax(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T 
     for (size_t i = 0; i < y.latBase.lenBulk; ++i) {
         for (int ns = 0; ns < Ns; ++ns) {
             for (int nc = 0; nc < 3; ++nc) {
-                for (int j = 0; j < 2*Nbatch; ++j) {
+                for (int j = 0; j < 2 * Nbatch; ++j) {
                     y.data[ns + Ns * i].c[nc].z[j] -= a * x.data[ns + Ns * i].c[nc].z[j];
                 }
             }
@@ -177,8 +180,9 @@ void Axpby(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T
     for (size_t i = 0; i < y.latBase.lenBulk; ++i) {
         for (int ns = 0; ns < Ns; ++ns) {
             for (int nc = 0; nc < 3; ++nc) {
-                for (int j = 0; j < 2*Nbatch; ++j) {
-                    y.data[ns + Ns * i].c[nc].z[j] = a * x.data[ns + Ns * i].c[nc].z[j] + b * y.data[ns + Ns * i].c[nc].z[j];
+                for (int j = 0; j < 2 * Nbatch; ++j) {
+                    y.data[ns + Ns * i].c[nc].z[j] =
+                        a * x.data[ns + Ns * i].c[nc].z[j] + b * y.data[ns + Ns * i].c[nc].z[j];
                 }
             }
         }
@@ -252,7 +256,7 @@ T Norm(const SpinorField<T, Nbatch, Ns> &vec)
 #if SVEBITS == 512
 
 template <>
-void Ymax<float,16,1>(SpinorField<float,16,1> &y, const SpinorField<float,16,1> &x, float a)
+void Ymax<float, 16, 1>(SpinorField<float, 16, 1> &y, const SpinorField<float, 16, 1> &x, float a)
 {
     int Nbatch = 16;
 #pragma omp parallel for
@@ -276,7 +280,7 @@ void Ymax<float,16,1>(SpinorField<float,16,1> &y, const SpinorField<float,16,1> 
 }
 
 template <>
-void Axpby<float,16,1>(SpinorField<float,16,1> &y, const SpinorField<float,16,1> &x, float a, float b)
+void Axpby<float, 16, 1>(SpinorField<float, 16, 1> &y, const SpinorField<float, 16, 1> &x, float a, float b)
 {
     int Nbatch = 16;
 
@@ -308,22 +312,17 @@ void Axpby<float,16,1>(SpinorField<float,16,1> &y, const SpinorField<float,16,1>
 
 #endif
 
-#define INSTANTIATE_TEMPLATE_CLASS_SPINORFIELD(T, Nbatch, Ns)                    \
-    template class SpinorField<T, Nbatch, Ns>;                                   \
-    template SpinorField<T, Nbatch, Ns> operator-(                               \
-        const SpinorField<T, Nbatch, Ns> &, const SpinorField<T, Nbatch, Ns> &); \
-    template T Norm2(const SpinorField<T, Nbatch, Ns> &);                        \
-    template T Norm(const SpinorField<T, Nbatch, Ns> &);                         \
-    template void Axmy(SpinorField<T, Nbatch, Ns> &y,                            \
-        const SpinorField<T, Nbatch, Ns> &x, T a);                               \
-    template void Axpy(SpinorField<T, Nbatch, Ns> &y,                            \
-        const SpinorField<T, Nbatch, Ns> &x, T a);                               \
-    template void Ymax(SpinorField<T, Nbatch, Ns> &y,                            \
-        const SpinorField<T, Nbatch, Ns> &x, T a);                               \
-    template void Axpby(SpinorField<T, Nbatch, Ns> &y,                           \
-        const SpinorField<T, Nbatch, Ns> &x, T a, T b);                          \
-    template T RealDot(const SpinorField<T, Nbatch, Ns> &bra,                    \
-        const SpinorField<T, Nbatch, Ns> &ket)
+#define INSTANTIATE_TEMPLATE_CLASS_SPINORFIELD(T, Nbatch, Ns)                                          \
+    template class SpinorField<T, Nbatch, Ns>;                                                         \
+    template SpinorField<T, Nbatch, Ns> operator-(const SpinorField<T, Nbatch, Ns> &,                  \
+                                                  const SpinorField<T, Nbatch, Ns> &);                 \
+    template T Norm2(const SpinorField<T, Nbatch, Ns> &);                                              \
+    template T Norm(const SpinorField<T, Nbatch, Ns> &);                                               \
+    template void Axmy(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T a);       \
+    template void Axpy(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T a);       \
+    template void Ymax(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T a);       \
+    template void Axpby(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T a, T b); \
+    template T RealDot(const SpinorField<T, Nbatch, Ns> &bra, const SpinorField<T, Nbatch, Ns> &ket)
 INSTANTIATE_TEMPLATE_CLASS_SPINORFIELD(float, 1, 1);
 INSTANTIATE_TEMPLATE_CLASS_SPINORFIELD(double, 1, 1);
 INSTANTIATE_TEMPLATE_CLASS_SPINORFIELD(float, 16, 1);
@@ -334,6 +333,4 @@ INSTANTIATE_TEMPLATE_CLASS_SPINORFIELD(double, 1, 4);
 INSTANTIATE_TEMPLATE_CLASS_SPINORFIELD(float, 16, 4);
 INSTANTIATE_TEMPLATE_CLASS_SPINORFIELD(double, 8, 4);
 
-
-
-}  // namespace kuqcd
+} // namespace kuqcd

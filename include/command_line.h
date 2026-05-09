@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -17,7 +17,7 @@
 namespace kuqcd {
 
 // eliminate blanck char
-std::string Trim(const std::string& s);
+std::string Trim(const std::string &s);
 
 class CmdLineParam {
 public:
@@ -25,5 +25,5 @@ public:
     void ReadParam();
 };
 
-}
+} // namespace kuqcd
 #endif

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -25,7 +25,7 @@ public:
 
     // Constructors
     Complex() = default;
-    explicit Complex(T real, T imag = 0);  // For Nbatch = 1
+    explicit Complex(T real, T imag = 0); // For Nbatch = 1
     explicit Complex(const T values[2 * Nbatch]);
     explicit Complex(const T realParts[Nbatch], const T imagParts[Nbatch]);
 
@@ -68,8 +68,8 @@ public:
     Complex<T, Nbatch> &operator-=(const Complex<T, Nbatch> &other);
     Complex<T, Nbatch> &operator*=(const Complex<T, Nbatch> &other);
     Complex<T, Nbatch> &operator/=(const Complex<T, Nbatch> &other);
-    Complex<T, Nbatch> &operator*=(T scalar);  // Scalar multiplication
-    Complex<T, Nbatch> &operator/=(T scalar);  // Scalar division
+    Complex<T, Nbatch> &operator*=(T scalar); // Scalar multiplication
+    Complex<T, Nbatch> &operator/=(T scalar); // Scalar division
 
     // Unary minus
     Complex<T, Nbatch> operator-() const;
@@ -80,22 +80,22 @@ template <typename T, int Nbatch>
 Complex<T, Nbatch> Conj(const Complex<T, Nbatch> &a);
 
 template <typename T, int Nbatch>
-T Norm2(const Complex<T, Nbatch> &a, int i);  // |z_i|^2
+T Norm2(const Complex<T, Nbatch> &a, int i); // |z_i|^2
 
 template <typename T, int Nbatch>
-T Abs(const Complex<T, Nbatch> &a, int i);  // |z_i|
+T Abs(const Complex<T, Nbatch> &a, int i); // |z_i|
 
 template <typename T, int Nbatch>
-T Arg(const Complex<T, Nbatch> &a, int i);  // arg(z_i)
+T Arg(const Complex<T, Nbatch> &a, int i); // arg(z_i)
 
 template <typename T, int Nbatch>
-T Norm2(const Complex<T, Nbatch> &a);  // Sum of norms squared
+T Norm2(const Complex<T, Nbatch> &a); // Sum of norms squared
 
 template <typename T, int Nbatch>
-T Abs(const Complex<T, Nbatch> &a);  // Sum of norms
+T Abs(const Complex<T, Nbatch> &a); // Sum of norms
 
 template <typename T, int Nbatch>
-T RealSum(const Complex<T, Nbatch> &a);  // Sum of real parts
+T RealSum(const Complex<T, Nbatch> &a); // Sum of real parts
 
 // Non-member binary operators
 template <typename T, int Nbatch>
@@ -150,7 +150,7 @@ std::ostream &operator<<(std::ostream &os, const Complex<T, Nbatch> &a);
     extern template Complex<T, Nbatch> operator/(Complex<T, Nbatch>, T);                          \
     extern template bool operator==(const Complex<T, Nbatch> &, const Complex<T, Nbatch> &);      \
     extern template bool operator!=(const Complex<T, Nbatch> &, const Complex<T, Nbatch> &);      \
-    extern template std::ostream &operator<<(std::ostream &, const Complex<T, Nbatch> &) \
+    extern template std::ostream &operator<<(std::ostream &, const Complex<T, Nbatch> &)
 
 // Declare extern templates for the specific instantiations
 DECLARE_COMPLEX_EXTERN_TEMPLATE(float, 1);
@@ -158,5 +158,5 @@ DECLARE_COMPLEX_EXTERN_TEMPLATE(double, 1);
 DECLARE_COMPLEX_EXTERN_TEMPLATE(float, 16);
 DECLARE_COMPLEX_EXTERN_TEMPLATE(double, 8);
 
-}  // namespace kuqcd
+} // namespace kuqcd
 #endif

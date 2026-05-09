@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -22,7 +22,7 @@ class CGM : public Inverter<T, VecT> {
 public:
     CGM(KuQCDInverterType it, Dirac<VecT> *dirac_) : Inverter<T, VecT>(it, dirac_) {}
     ~CGM() override {};
-    int Invert(int noShifts, T shifts[], const VecT & src, VecT *sol[], const double tol, int maxIters) override;
+    int Invert(int noShifts, T shifts[], const VecT &src, VecT *sol[], const double tol, int maxIters) override;
 };
 
 } // namespace kuqcd

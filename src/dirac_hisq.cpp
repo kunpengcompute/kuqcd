@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -29,10 +29,16 @@ namespace kuqcd {
 
 template <typename T, int Nbatch, KuQCDReconstructType ReconS, KuQCDReconstructType ReconN>
 DiracHISQ<T, Nbatch, ReconS, ReconN>::DiracHISQ(KuQCDDslashType diracType, const LinkST &gaugeSmeared_,
-    const LinkNT &gaugeNaik_, const double mass_, VecT *tmp_, T naikEps)
-    : Dirac<VecT>(diracType), gaugeSmeared(gaugeSmeared_), gaugeNaik(gaugeNaik_), tmp(tmp_),
-      latBase(gaugeSmeared_.latBase), mass(mass_), mass2(mass_ * mass_),
-      c3000((-1. / 48.0) * (1.0 + (double)naikEps)), gridDim(gaugeSmeared.latBase.gridDim)
+                                                const LinkNT &gaugeNaik_, const double mass_, VecT *tmp_, T naikEps)
+    : Dirac<VecT>(diracType),
+      gaugeSmeared(gaugeSmeared_),
+      gaugeNaik(gaugeNaik_),
+      tmp(tmp_),
+      latBase(gaugeSmeared_.latBase),
+      mass(mass_),
+      mass2(mass_ * mass_),
+      c3000((-1. / 48.0) * (1.0 + (double)naikEps)),
+      gridDim(gaugeSmeared.latBase.gridDim)
 {
     InitComm();
     InitNbIdx();
@@ -421,8 +427,8 @@ void DiracHISQ<T, Nbatch, ReconS, ReconN>::Dslash(const VecT &src, VecT &dst, bo
     for (size_t i = 0; i < dst.latBase.lenBulk; ++i) {
         size_t j = i + offseti;
 
-        bool isdsteven =
-            (src.latBase.site_subset == KUQCD_ODD) || ((src.latBase.site_subset == KUQCD_ALL) && (j < latBase.latSubBulkCB.V));
+        bool isdsteven = (src.latBase.site_subset == KUQCD_ODD) ||
+                         ((src.latBase.site_subset == KUQCD_ALL) && (j < latBase.latSubBulkCB.V));
         size_t xyzt = (j < latBase.latSubBulkCB.V) ? j : (j - latBase.latSubBulkCB.V);
         size_t yzt = xyzt / latBase.latSubBulkCB.nx;
         size_t zt = yzt / latBase.latSubBulkCB.ny;
@@ -441,7 +447,6 @@ void DiracHISQ<T, Nbatch, ReconS, ReconN>::Dslash(const VecT &src, VecT &dst, bo
         BwdDslash<1>(j, src, res, offsetg);
         BwdDslash<2>(j, src, res, offsetg);
         BwdDslash<3>(j, src, res, offsetg);
-
     }
 
     if (np > 1) {
@@ -458,8 +463,8 @@ void DiracHISQ<T, Nbatch, ReconS, ReconN>::MdaggM(const VecT &src, VecT &dst, bo
 
 template <typename T, int Nbatch, KuQCDReconstructType ReconS, KuQCDReconstructType ReconN>
 template <int dir>
-void DiracHISQ<T, Nbatch, ReconS, ReconN>::FwdDslash(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<T, Nbatch, ReconS, ReconN>::FwdDslash(size_t i, const VecT &src, SpinorT &res, size_t offsetg,
+                                                     bool ismatch)
 {
     long ni = nb1Idx.idx[dir + 8 * i];
     if (ni >= 0) {
@@ -478,8 +483,8 @@ void DiracHISQ<T, Nbatch, ReconS, ReconN>::FwdDslash(
 
 template <typename T, int Nbatch, KuQCDReconstructType ReconS, KuQCDReconstructType ReconN>
 template <int dir>
-void DiracHISQ<T, Nbatch, ReconS, ReconN>::BwdDslash(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<T, Nbatch, ReconS, ReconN>::BwdDslash(size_t i, const VecT &src, SpinorT &res, size_t offsetg,
+                                                     bool ismatch)
 {
     long ni = nb1Idx.idx[dir + 4 + 8 * i];
     if (ni >= 0) {
@@ -500,8 +505,9 @@ void DiracHISQ<T, Nbatch, ReconS, ReconN>::BwdDslash(
 
 template <>
 template <>
-void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash<0>(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash<0>(size_t i, const VecT &src,
+                                                                                    SpinorT &res, size_t offsetg,
+                                                                                    bool ismatch)
 {
     int Nbatch = 16;
 
@@ -557,8 +563,9 @@ void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash
 
 template <>
 template <>
-void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash<0>(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash<0>(size_t i, const VecT &src,
+                                                                                    SpinorT &res, size_t offsetg,
+                                                                                    bool ismatch)
 {
     int Nbatch = 16;
 
@@ -661,8 +668,9 @@ void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash
 
 template <>
 template <>
-void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash<0>(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash<0>(size_t i, const VecT &src,
+                                                                                    SpinorT &res, size_t offsetg,
+                                                                                    bool ismatch)
 {
     int Nbatch = 16;
 
@@ -802,8 +810,9 @@ void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash
 
 template <>
 template <>
-void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash<0>(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash<0>(size_t i, const VecT &src,
+                                                                                    SpinorT &res, size_t offsetg,
+                                                                                    bool ismatch)
 {
     int Nbatch = 16;
 
@@ -968,8 +977,9 @@ void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash
 
 template <>
 template <>
-void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash<1>(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash<1>(size_t i, const VecT &src,
+                                                                                    SpinorT &res, size_t offsetg,
+                                                                                    bool ismatch)
 {
     int dir = 1;
     long ni = nb1Idx.idx[dir + 8 * i];
@@ -994,8 +1004,9 @@ void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash
 
 template <>
 template <>
-void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash<1>(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash<1>(size_t i, const VecT &src,
+                                                                                    SpinorT &res, size_t offsetg,
+                                                                                    bool ismatch)
 {
     int dir = 1;
 
@@ -1020,8 +1031,9 @@ void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash
 
 template <>
 template <>
-void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash<2>(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash<2>(size_t i, const VecT &src,
+                                                                                    SpinorT &res, size_t offsetg,
+                                                                                    bool ismatch)
 {
     int dir = 2;
     long ni = nb1Idx.idx[dir + 8 * i];
@@ -1046,8 +1058,9 @@ void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash
 
 template <>
 template <>
-void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash<2>(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash<2>(size_t i, const VecT &src,
+                                                                                    SpinorT &res, size_t offsetg,
+                                                                                    bool ismatch)
 {
     int dir = 2;
     long ni = nb1Idx.idx[dir + 4 + 8 * i];
@@ -1072,8 +1085,9 @@ void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash
 
 template <>
 template <>
-void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash<3>(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash<3>(size_t i, const VecT &src,
+                                                                                    SpinorT &res, size_t offsetg,
+                                                                                    bool ismatch)
 {
     int dir = 3;
     long ni = nb1Idx.idx[dir + 8 * i];
@@ -1084,7 +1098,6 @@ void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash
         SpinorT &v = src.data[isp];
         GaugeST &U = gaugeSmeared.data[dir + 4 * igg];
         UMultV(U, v, res, 0.5f);
-
     }
 
     ni = nb3Idx.idx[dir + 8 * i];
@@ -1099,12 +1112,12 @@ void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::FwdDslash
 
 template <>
 template <>
-void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash<3>(
-    size_t i, const VecT &src, SpinorT &res, size_t offsetg, bool ismatch)
+void DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_NO>::BwdDslash<3>(size_t i, const VecT &src,
+                                                                                    SpinorT &res, size_t offsetg,
+                                                                                    bool ismatch)
 {
     int dir = 3;
     long ni = nb1Idx.idx[dir + 4 + 8 * i];
-
 
     if (ni >= 0) {
         size_t isp = src.latBase.myIdx.idx[ni];
@@ -1138,4 +1151,4 @@ template class DiracHISQ<double, 1, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_U14>
 template class DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_U14>;
 template class DiracHISQ<double, 8, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_U14>;
 
-}  // namespace kuqcd
+} // namespace kuqcd

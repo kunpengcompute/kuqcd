@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -11,7 +11,6 @@
  */
 #ifndef KUQCD_UTILS_H
 #define KUQCD_UTILS_H
-
 
 #include <mpi.h>
 #include <cstdio>
@@ -62,8 +61,7 @@ inline int GetNp()
 struct uint4 {
     unsigned int x, y, z, w;
     uint4() = default;
-    uint4(unsigned int x, unsigned int y, unsigned int z, unsigned int w) : x(x), y(y), z(z), w(w)
-    {}
+    uint4(unsigned int x, unsigned int y, unsigned int z, unsigned int w) : x(x), y(y), z(z), w(w) {}
 };
 
 /**
@@ -118,11 +116,9 @@ inline unsigned LCGStep(unsigned &z, unsigned A, unsigned C)
 template <class T>
 inline T GetRand(uint4 *state)
 {
-    return 3.1415926e-10 *
-           (TausStep(state->x, 12, 18, 11, 4222227294ul) ^ TausStep(state->y, 1, 24, 3, 4232327288ul) ^
-               TausStep(state->z, 2, 10, 16, 4233337280ul) ^ LCGStep(state->w, 1221232, 1012324223ul));
+    return 3.1415926e-10 * (TausStep(state->x, 12, 18, 11, 4222227294ul) ^ TausStep(state->y, 1, 24, 3, 4232327288ul) ^
+                            TausStep(state->z, 2, 10, 16, 4233337280ul) ^ LCGStep(state->w, 1221232, 1012324223ul));
 }
-
 
 bool pathExists(const std::string &path);
 
@@ -134,10 +130,9 @@ __attribute__((constructor(101))) static void checkHugePages()
     bool flag = numaHasHugePages(16);
     if (!flag) {
         printf("no HugePages\n");
-        
     }
 #endif
 }
-}  // namespace kuqcd
+} // namespace kuqcd
 
 #endif

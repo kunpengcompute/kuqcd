@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -28,7 +28,17 @@
 namespace kuqcd {
 
 // 日志级别枚举
-enum class LogLevel { ALL, ALLOC, TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF };
+enum class LogLevel {
+    ALL,
+    ALLOC,
+    TRACE,
+    DEBUG,
+    INFO,
+    WARN,
+    ERROR,
+    FATAL,
+    OFF
+};
 static const char *LogLevelStr[] = {"ALL", "ALLOC", "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL", "OFF"};
 
 // 颜色定义命名空间
@@ -46,7 +56,7 @@ const std::string magentaBold("\033[1;35m");
 const std::string blue("\033[0;34m");
 const std::string blueBold("\033[1;34m");
 const std::string reset("\033[0m");
-}  // namespace Colors
+} // namespace Colors
 
 // 字符串连接辅助函数
 template <typename... Args>
@@ -82,7 +92,7 @@ private:
 
 public:
     Logger(LogLevel loglevel = LogLevel::ALL, bool colorized_output = true, std::ostream &out = std::cout,
-        std::string addPrefix = "");
+           std::string addPrefix = "");
 
     void SetVerbosity(LogLevel v);
     LogLevel GetVerbosity();
@@ -193,7 +203,7 @@ public:
 extern Logger stdLogger;
 extern Logger rootLogger;
 
-}  // namespace kuqcd
+} // namespace kuqcd
 
 // 为kuqcd类型提供流输出操作符重载
 namespace kuqcd {
@@ -265,5 +275,5 @@ std::ostream &operator<<(std::ostream &os, const SU3<T, Nbatch, Recon> &su3)
     return os;
 }
 
-}  // namespace kuqcd
+} // namespace kuqcd
 #endif

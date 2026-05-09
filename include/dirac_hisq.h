@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -52,13 +52,13 @@ public:
     std::array<Communicator<ColorSpinor<T, Nbatch>>, 8> comm3;
 
     DiracHISQ(KuQCDDslashType diracType, const LinkST &gaugeSmeared_, const LinkNT &gaugeNaik_, const double mass_,
-        VecT *tmp_ = nullptr, T naikEps = 0);
+              VecT *tmp_ = nullptr, T naikEps = 0);
     ~DiracHISQ() override {};
     void Dslash(const VecT &src, VecT &dst, bool update = false) override;
     void MdaggM(const VecT &src, VecT &dst, bool update = false) override;
     void InitComm();
     void InitNbIdx();
-    void InitNbIdxParity(KuQCDSiteSubset site_subset);  // result site_subset
+    void InitNbIdxParity(KuQCDSiteSubset site_subset); // result site_subset
     void PackHalo(const VecT &vec, int dir);
     void UnpackHalo(const VecT &vec, int dir);
     void StartComm(const VecT &vec, bool update);
@@ -80,6 +80,6 @@ extern template class DiracHISQ<double, 1, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_REC
 extern template class DiracHISQ<float, 16, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_U14>;
 extern template class DiracHISQ<double, 8, KUQCD_GAUGE_RECON_NO, KUQCD_GAUGE_RECON_U14>;
 
-}  // namespace kuqcd
+} // namespace kuqcd
 
 #endif
