@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -51,9 +51,9 @@ void KMemory::InitMem(size_t sz)
 #else
         rawPtr = std::aligned_alloc(64, sz);
 #endif
-    if (rawPtr == nullptr) {
-        throw(std::bad_alloc());
-    }
+        if (rawPtr == nullptr) {
+            throw(std::bad_alloc());
+        }
     } else {
         rawPtr = nullptr;
     }
@@ -149,9 +149,9 @@ void HaloMemory::InitHaloMem(size_t sz)
 #else
         this->rawPtr = std::aligned_alloc(64, sz);
 #endif
-    if (this->rawPtr == nullptr) {
-        throw(std::bad_alloc());
-    }
+        if (this->rawPtr == nullptr) {
+            throw(std::bad_alloc());
+        }
     } else {
         this->rawPtr = nullptr;
     }
@@ -220,9 +220,9 @@ void Index::Init(size_t len)
     length = len;
     if (len > 0) {
         idx = static_cast<long *>(std::aligned_alloc(64, len * sizeof(long)));
-    if (idx == nullptr) {
-        throw(std::bad_alloc());
-    }
+        if (idx == nullptr) {
+            throw(std::bad_alloc());
+        }
     } else {
         idx = nullptr;
     }
@@ -250,4 +250,4 @@ void Index::Free()
     }
 }
 
-}  // namespace kuqcd
+} // namespace kuqcd

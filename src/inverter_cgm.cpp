@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -14,8 +14,8 @@
 
 namespace kuqcd {
 
-template<typename T, typename VecT>
-int CGM<T, VecT>::Invert(int noShifts, T shifts[], const VecT & src, VecT *sol[], const double tol, int maxIters)
+template <typename T, typename VecT>
+int CGM<T, VecT>::Invert(int noShifts, T shifts[], const VecT &src, VecT *sol[], const double tol, int maxIters)
 {
     int maxTerm = noShifts;
     T a[noShifts];
@@ -32,7 +32,7 @@ int CGM<T, VecT>::Invert(int noShifts, T shifts[], const VecT & src, VecT *sol[]
         B[i] = 1.0;
         Z[i] = 1.0;
         Zm1[i] = 1.0;
-        sol[i] -> Clear();
+        sol[i]->Clear();
     }
 
     T rNorm2 = Norm2(r);
@@ -46,14 +46,13 @@ int CGM<T, VecT>::Invert(int noShifts, T shifts[], const VecT & src, VecT *sol[]
         Axmy(s, pi0, shifts[0]);
         pAp = RealDot(pi0, s);
         B[0] = -rNorm2 / pAp;
-        
+
         Axpy(r, s, B[0]);
         for (int j = 1; j < maxTerm; ++j) {
-            rr1 = Bm1 * Zm1[j] / ( B[0] * a[0] * (Zm1[j] - Z[j]) 
-                    + Zm1[j] * Bm1 * (1.0 - shifts[j] * B[0]) );
+            rr1 = Bm1 * Zm1[j] / (B[0] * a[0] * (Zm1[j] - Z[j]) + Zm1[j] * Bm1 * (1.0 - shifts[j] * B[0]));
             Zm1[j] = Z[j];
-            Z[j]   = Z[j] * rr1;
-            B[j]   = B[0] * rr1;
+            Z[j] = Z[j] * rr1;
+            B[j] = B[0] * rr1;
         }
         Bm1 = B[0];
         lambda2 = Norm2(r);
@@ -74,9 +73,9 @@ int CGM<T, VecT>::Invert(int noShifts, T shifts[], const VecT & src, VecT *sol[]
             if (lambda < tol) {
                 maxTerm--;
             }
-        } while ( (maxTerm > 0) && (lambda < tol) );
+        } while ((maxTerm > 0) && (lambda < tol));
 
-    } while ( (maxTerm > 0) && (iter < maxIters) );
+    } while ((maxTerm > 0) && (iter < maxIters));
 
     if (iter >= maxIters - 1) {
         Rank0Printf("CGM: Warning max iteration reached %d\n", iter);
@@ -87,10 +86,9 @@ int CGM<T, VecT>::Invert(int noShifts, T shifts[], const VecT & src, VecT *sol[]
     return iter;
 }
 
-
 template class CGM<float, SpinorField<float, 1, 1>>;
 
 template class CGM<float, SpinorField<float, 16, 1>>;
 template class CGM<double, SpinorField<double, 1, 1>>;
 template class CGM<double, SpinorField<double, 8, 1>>;
-}
+} // namespace kuqcd

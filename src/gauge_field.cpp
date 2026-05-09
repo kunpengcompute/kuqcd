@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -305,7 +305,7 @@ void GaugeField<T, Nbatch, Recon>::UnpackHalo(Communicator<GaugeT> &communicator
         memSend = &commCorner[i].memSend;
     }
     kupl_shm_win_query(memSend->win, communicator.nbRank, &remote);
-    halo = static_cast<GaugeT*>(remote);
+    halo = static_cast<GaugeT *>(remote);
 
     if (ls == 6) {
         for (size_t i = 0; i < communicator.length; ++i) {
@@ -348,4 +348,4 @@ template class GaugeField<double, 1, KUQCD_GAUGE_RECON_U14>;
 template class GaugeField<float, 16, KUQCD_GAUGE_RECON_U14>;
 template class GaugeField<double, 8, KUQCD_GAUGE_RECON_U14>;
 
-}  // namespace kuqcd
+} // namespace kuqcd

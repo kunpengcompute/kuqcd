@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -59,6 +59,6 @@ extern template class GaugeField<double, 1, KUQCD_GAUGE_RECON_U14>;
 extern template class GaugeField<float, 16, KUQCD_GAUGE_RECON_U14>;
 extern template class GaugeField<double, 8, KUQCD_GAUGE_RECON_U14>;
 
-}  // namespace kuqcd
+} // namespace kuqcd
 
 #endif

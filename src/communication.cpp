@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -72,8 +72,14 @@ double Reduce(double in)
 
 template <typename FieldT>
 Communicator<FieldT>::Communicator(const Communicator<FieldT> &comm)
-    : myRank(comm.myRank), nbRank(comm.nbRank), tagSend(comm.tagSend), tagRecv(comm.tagRecv), length(comm.length),
-      stateSend(comm.stateSend), stateRecv(comm.stateRecv), memSend(comm.memSend)
+    : myRank(comm.myRank),
+      nbRank(comm.nbRank),
+      tagSend(comm.tagSend),
+      tagRecv(comm.tagRecv),
+      length(comm.length),
+      stateSend(comm.stateSend),
+      stateRecv(comm.stateRecv),
+      memSend(comm.memSend)
 {
     dataSend = static_cast<FieldT *>(memSend.rawPtr);
 #ifndef USE_KUPL_COMM
@@ -157,13 +163,26 @@ INSTANTIATE_COMMUNICATOR_TEMPLATE(float, 16);
 INSTANTIATE_COMMUNICATOR_TEMPLATE(double, 8);
 
 CommBase::CommBase(const CommBase &comm)
-    : latBase(comm.latBase), rankHyperPlane(comm.rankHyperPlane), lenHyperPlane(comm.lenHyperPlane),
-      rankPlane(comm.rankPlane), lenPlane(comm.lenPlane), rankStripe(comm.rankStripe), lenStripe(comm.lenStripe),
-      rankCorner(comm.rankCorner), lenCorner(comm.lenCorner), nbIdx(comm.nbIdx), haloIdxSend1(comm.haloIdxSend1),
-      haloIdxRecv1(comm.haloIdxRecv1), haloIdxSend2(comm.haloIdxSend2), haloIdxRecv2(comm.haloIdxRecv2),
-      haloIdxSend3(comm.haloIdxSend3), haloIdxRecv3(comm.haloIdxRecv3), haloIdxSend4(comm.haloIdxSend4),
+    : latBase(comm.latBase),
+      rankHyperPlane(comm.rankHyperPlane),
+      lenHyperPlane(comm.lenHyperPlane),
+      rankPlane(comm.rankPlane),
+      lenPlane(comm.lenPlane),
+      rankStripe(comm.rankStripe),
+      lenStripe(comm.lenStripe),
+      rankCorner(comm.rankCorner),
+      lenCorner(comm.lenCorner),
+      nbIdx(comm.nbIdx),
+      haloIdxSend1(comm.haloIdxSend1),
+      haloIdxRecv1(comm.haloIdxRecv1),
+      haloIdxSend2(comm.haloIdxSend2),
+      haloIdxRecv2(comm.haloIdxRecv2),
+      haloIdxSend3(comm.haloIdxSend3),
+      haloIdxRecv3(comm.haloIdxRecv3),
+      haloIdxSend4(comm.haloIdxSend4),
       haloIdxRecv4(comm.haloIdxRecv4)
-{}
+{
+}
 
 CommBase::CommBase(LattBase &latBase_) : latBase(latBase_)
 {
@@ -463,4 +482,4 @@ void CommBase::InitHaloIdx1(int mu)
     }
 }
 
-}  // namespace kuqcd
+} // namespace kuqcd

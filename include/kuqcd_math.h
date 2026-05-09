@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -55,8 +55,8 @@ template <>
 void UMultV(const SU3<float, 16, KUQCD_GAUGE_RECON_NO> &, const ColorSpinor<float, 16> &, ColorSpinor<float, 16> &);
 
 template <>
-void UMultV(
-    const SU3<float, 16, KUQCD_GAUGE_RECON_NO> &, const ColorSpinor<float, 16> &, ColorSpinor<float, 16> &, float);
+void UMultV(const SU3<float, 16, KUQCD_GAUGE_RECON_NO> &, const ColorSpinor<float, 16> &, ColorSpinor<float, 16> &,
+            float);
 
 template <>
 void UMultV<float, 16, KUQCD_GAUGE_RECON_NO>(const float *const u, const float *const src, float *res, float c);
@@ -68,8 +68,8 @@ template <>
 void UDaggMultV(const SU3<float, 16, KUQCD_GAUGE_RECON_NO> &, const ColorSpinor<float, 16> &, ColorSpinor<float, 16> &);
 
 template <>
-void UDaggMultV(
-    const SU3<float, 16, KUQCD_GAUGE_RECON_NO> &, const ColorSpinor<float, 16> &, ColorSpinor<float, 16> &, float);
+void UDaggMultV(const SU3<float, 16, KUQCD_GAUGE_RECON_NO> &, const ColorSpinor<float, 16> &, ColorSpinor<float, 16> &,
+                float);
 
 template <>
 void UDaggMultV<float, 16, KUQCD_GAUGE_RECON_NO>(const float *const u, const float *const src, float *res, float c);
@@ -80,16 +80,16 @@ void UDaggMultV<float, 16, KUQCD_GAUGE_RECON_NO>(const float *const u, const flo
 
 #define DECLARE_MATH_EXTERN_TEMPLATE(T, Nbatch, Recon)                                                                \
     extern template ColorSpinor<T, Nbatch> UMultV(const SU3<T, Nbatch, Recon> &, const ColorSpinor<T, Nbatch> &);     \
-    extern template void UMultV(                                                                                      \
-        const SU3<T, Nbatch, Recon> &, const ColorSpinor<T, Nbatch> &, ColorSpinor<T, Nbatch> &);                     \
-    extern template void UMultV(                                                                                      \
-        const SU3<T, Nbatch, Recon> &, const ColorSpinor<T, Nbatch> &, ColorSpinor<T, Nbatch> &, T);                  \
+    extern template void UMultV(const SU3<T, Nbatch, Recon> &, const ColorSpinor<T, Nbatch> &,                        \
+                                ColorSpinor<T, Nbatch> &);                                                            \
+    extern template void UMultV(const SU3<T, Nbatch, Recon> &, const ColorSpinor<T, Nbatch> &,                        \
+                                ColorSpinor<T, Nbatch> &, T);                                                         \
     extern template void UMultV<T, Nbatch, Recon>(const T *const u, const T *const src, T *res, T c);                 \
     extern template ColorSpinor<T, Nbatch> UDaggMultV(const SU3<T, Nbatch, Recon> &, const ColorSpinor<T, Nbatch> &); \
-    extern template void UDaggMultV(                                                                                  \
-        const SU3<T, Nbatch, Recon> &, const ColorSpinor<T, Nbatch> &, ColorSpinor<T, Nbatch> &);                     \
-    extern template void UDaggMultV(                                                                                  \
-        const SU3<T, Nbatch, Recon> &, const ColorSpinor<T, Nbatch> &, ColorSpinor<T, Nbatch> &, T);                  \
+    extern template void UDaggMultV(const SU3<T, Nbatch, Recon> &, const ColorSpinor<T, Nbatch> &,                    \
+                                    ColorSpinor<T, Nbatch> &);                                                        \
+    extern template void UDaggMultV(const SU3<T, Nbatch, Recon> &, const ColorSpinor<T, Nbatch> &,                    \
+                                    ColorSpinor<T, Nbatch> &, T);                                                     \
     extern template void UDaggMultV<T, Nbatch, Recon>(const T *const u, const T *const src, T *res, T c);             \
     extern template SU3<T, Nbatch, Recon> UMultU(const SU3<T, Nbatch, Recon> &, const SU3<T, Nbatch, Recon> &)
 
@@ -108,5 +108,5 @@ DECLARE_MATH_EXTERN_TEMPLATE(double, 1, KUQCD_GAUGE_RECON_U14);
 DECLARE_MATH_EXTERN_TEMPLATE(float, 16, KUQCD_GAUGE_RECON_U14);
 DECLARE_MATH_EXTERN_TEMPLATE(double, 8, KUQCD_GAUGE_RECON_U14);
 
-}  // namespace kuqcd
+} // namespace kuqcd
 #endif

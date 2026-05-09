@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -50,8 +50,8 @@ Position GetAntiPosition(const unsigned int i, const Lattice &lat)
     return p;
 }
 
-Position GetSupPosFromSubPos(
-    const Position &pos, const Lattice &subLat, const std::array<unsigned short, 4> &gridDim, const int myRank)
+Position GetSupPosFromSubPos(const Position &pos, const Lattice &subLat, const std::array<unsigned short, 4> &gridDim,
+                             const int myRank)
 {
     unsigned int gridx;
     unsigned int gridy;
@@ -122,7 +122,7 @@ Position GetFullPosFromBulkPos(const Position &pos, int haloDepth, const std::ar
 }
 
 unsigned int GetSupIdxFromSubIdx(const unsigned int i, const Lattice &subLat, const Lattice &supLat,
-    const std::array<unsigned short, 4> &gridDim, const int myRank)
+                                 const std::array<unsigned short, 4> &gridDim, const int myRank)
 {
     unsigned int x;
     unsigned int y;
@@ -334,4 +334,4 @@ unsigned int GetBufIdx3(const Position &pos, const int dir, const Lattice &lat)
     return idx;
 }
 
-}  // namespace kuqcd
+} // namespace kuqcd

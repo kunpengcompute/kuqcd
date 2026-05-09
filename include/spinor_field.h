@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -11,7 +11,6 @@
  */
 #ifndef SPINOR_FIELD_H
 #define SPINOR_FIELD_H
-
 
 #include "lattice_field.h"
 
@@ -27,7 +26,10 @@ public:
     SpinorT GetSpinorCopy(size_t i, int ns) const;
     SpinorT &GetSpinorRef(size_t, int ns);
     void RandGauss(uint4 *randState);
-    inline int GetNbatch() { return Nbatch; }
+    inline int GetNbatch()
+    {
+        return Nbatch;
+    }
 
     // SpinorField<T, Nbatch, Ns> &operator=(const SpinorField<T, Nbatch, Ns> &vec1);
     SpinorField<T, Nbatch, Ns> operator*(T scalar);
@@ -64,30 +66,25 @@ T Norm(const SpinorField<T, Nbatch, Ns> &vec);
 #if SVEBITS == 512
 
 template <>
-void Ymax<float,16,1>(SpinorField<float,16,1> &y, const SpinorField<float,16,1> &x, float a);
+void Ymax<float, 16, 1>(SpinorField<float, 16, 1> &y, const SpinorField<float, 16, 1> &x, float a);
 
 template <>
-void Axpby<float,16,1>(SpinorField<float,16,1> &y, const SpinorField<float,16,1> &x, float a, float b);
+void Axpby<float, 16, 1>(SpinorField<float, 16, 1> &y, const SpinorField<float, 16, 1> &x, float a, float b);
 #endif
 
 #endif
 
-#define DECLARE_EXTERN_TEMPLATE_CLASS_SPINORFIELD(T, Nbatch, Ns)                 \
-    extern template class SpinorField<T, Nbatch, Ns>;                            \
-    extern template SpinorField<T, Nbatch, Ns> operator-(                        \
-        const SpinorField<T, Nbatch, Ns> &, const SpinorField<T, Nbatch, Ns> &); \
-    extern template T Norm2(const SpinorField<T, Nbatch, Ns> &);                 \
-    extern template T Norm(const SpinorField<T, Nbatch, Ns> &);                  \
-    extern template void Axmy(SpinorField<T, Nbatch, Ns> &y,                     \
-        const SpinorField<T, Nbatch, Ns> &x, T a);                               \
-    extern template void Axpy(SpinorField<T, Nbatch, Ns> &y,                     \
-        const SpinorField<T, Nbatch, Ns> &x, T a);                               \
-    extern template void Ymax(SpinorField<T, Nbatch, Ns> &y,                     \
-        const SpinorField<T, Nbatch, Ns> &x, T a);                               \
-    extern template void Axpby(SpinorField<T, Nbatch, Ns> &y,                    \
-        const SpinorField<T, Nbatch, Ns> &x, T a, T b);                          \
-    extern template T RealDot(const SpinorField<T, Nbatch, Ns> &bra,             \
-        const SpinorField<T, Nbatch, Ns> &ket)
+#define DECLARE_EXTERN_TEMPLATE_CLASS_SPINORFIELD(T, Nbatch, Ns)                                              \
+    extern template class SpinorField<T, Nbatch, Ns>;                                                         \
+    extern template SpinorField<T, Nbatch, Ns> operator-(const SpinorField<T, Nbatch, Ns> &,                  \
+                                                         const SpinorField<T, Nbatch, Ns> &);                 \
+    extern template T Norm2(const SpinorField<T, Nbatch, Ns> &);                                              \
+    extern template T Norm(const SpinorField<T, Nbatch, Ns> &);                                               \
+    extern template void Axmy(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T a);       \
+    extern template void Axpy(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T a);       \
+    extern template void Ymax(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T a);       \
+    extern template void Axpby(SpinorField<T, Nbatch, Ns> &y, const SpinorField<T, Nbatch, Ns> &x, T a, T b); \
+    extern template T RealDot(const SpinorField<T, Nbatch, Ns> &bra, const SpinorField<T, Nbatch, Ns> &ket)
 DECLARE_EXTERN_TEMPLATE_CLASS_SPINORFIELD(float, 1, 1);
 DECLARE_EXTERN_TEMPLATE_CLASS_SPINORFIELD(double, 1, 1);
 DECLARE_EXTERN_TEMPLATE_CLASS_SPINORFIELD(float, 16, 1);
@@ -98,5 +95,5 @@ DECLARE_EXTERN_TEMPLATE_CLASS_SPINORFIELD(double, 1, 4);
 DECLARE_EXTERN_TEMPLATE_CLASS_SPINORFIELD(float, 16, 4);
 DECLARE_EXTERN_TEMPLATE_CLASS_SPINORFIELD(double, 8, 4);
 
-}  // namespace kuqcd
+} // namespace kuqcd
 #endif

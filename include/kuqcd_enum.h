@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -24,9 +24,18 @@ typedef enum {
     KUQCD_ERR_UNKNOWN_ERROR = -8,         /**< Exception occurs*/
 } KuQCDStatus;
 
-typedef enum { KUQCD_READ, KUQCD_WRITE, KUQCD_READWRITE } KuQCDIOMode;
+typedef enum {
+    KUQCD_READ,
+    KUQCD_WRITE,
+    KUQCD_READWRITE
+} KuQCDIOMode;
 
-typedef enum { KUQCD_EVEN = 0, KUQCD_ODD = 1, KUQCD_ALL = 2, KUQCD_INVALID_PARITY} KuQCDSiteSubset;
+typedef enum {
+    KUQCD_EVEN = 0,
+    KUQCD_ODD = 1,
+    KUQCD_ALL = 2,
+    KUQCD_INVALID_PARITY
+} KuQCDSiteSubset;
 
 typedef enum {
     KUQCD_HALF = 2,
@@ -44,11 +53,25 @@ typedef enum {
     KUQCD_INVALID_HALO
 } KuQCDHalo;
 
-typedef enum { KUQCD_XYZT_ORDER = 0, KUQCD_TZYX_ORDER = 1 } KuQCDRankOrder;
+typedef enum {
+    KUQCD_XYZT_ORDER = 0,
+    KUQCD_TZYX_ORDER = 1
+} KuQCDRankOrder;
 
-typedef enum { KUQCD_NORMAL_ORDER = 0, KUQCD_BATCH_ORDER = 1, KUQCD_INVALID_ORDER} KuQCDGaugeOrder;
-typedef enum {KUQCD_EVEN_EVEN = 0, KUQCD_ODD_ODD = 1} KuQCDMatPCType;
-typedef enum {KUQCD_WILSON_LINK = 0, KUQCD_FAT_LINK = 1, KUQCD_LONG_LINK = 2} KuQCDLinkType;
+typedef enum {
+    KUQCD_NORMAL_ORDER = 0,
+    KUQCD_BATCH_ORDER = 1,
+    KUQCD_INVALID_ORDER
+} KuQCDGaugeOrder;
+typedef enum {
+    KUQCD_EVEN_EVEN = 0,
+    KUQCD_ODD_ODD = 1
+} KuQCDMatPCType;
+typedef enum {
+    KUQCD_WILSON_LINK = 0,
+    KUQCD_FAT_LINK = 1,
+    KUQCD_LONG_LINK = 2
+} KuQCDLinkType;
 
 typedef enum {
     KUQCD_GAUGE_RECON_NO = 18,
@@ -83,8 +106,7 @@ typedef struct {
     KuQCDPrecision prec;
     KuQCDLinkType link_type;
     KuQCDReconstructType recon;
-}KuQCDGaugeParam;
-
+} KuQCDGaugeParam;
 
 typedef struct {
     KuQCDDslashType dslash_type;
@@ -95,7 +117,7 @@ typedef struct {
     int max_iter;
     int iter;
     double tol;
-    double* shifts;
+    double *shifts;
 } KuQCDInvertParam;
 
 #endif

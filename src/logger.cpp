@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -16,7 +16,8 @@ namespace kuqcd {
 // Logger类构造函数实现
 Logger::Logger(LogLevel loglevel, bool colorized_output, std::ostream &out, std::string addPrefix)
     : log_level(loglevel), colorized_output(colorized_output), out(out), addPrefix(addPrefix)
-{}
+{
+}
 
 // 成员函数实现
 void Logger::SetVerbosity(LogLevel v)
@@ -60,4 +61,4 @@ std::string Logger::GetAdditionalPrefix()
 Logger stdLogger(LogLevel::INFO, true, std::cout, "");
 Logger rootLogger(LogLevel::INFO, true, std::cout, "[ROOT] ");
 
-}  // namespace kuqcd
+} // namespace kuqcd

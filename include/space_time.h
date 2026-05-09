@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -11,7 +11,6 @@
  */
 #ifndef SPACE_TIME_H
 #define SPACE_TIME_H
-
 
 #include <array>
 #include <iostream>
@@ -26,11 +25,10 @@ public:
     unsigned short ny = 0;
     unsigned short nz = 0;
     unsigned short nt = 0;
-    size_t V = 0;  // nx*ny*nz*nt
+    size_t V = 0; // nx*ny*nz*nt
 
     Lattice() = default;
-    Lattice(const Lattice &lat) : nx(lat.nx), ny(lat.ny), nz(lat.nz), nt(lat.nt), V(lat.V)
-    {}
+    Lattice(const Lattice &lat) : nx(lat.nx), ny(lat.ny), nz(lat.nz), nt(lat.nt), V(lat.V) {}
     Lattice(const unsigned short x, const unsigned short y, const unsigned short z, const unsigned short t)
         : nx(x), ny(y), nz(z), nt(t)
     {
@@ -55,10 +53,8 @@ public:
     short t = 0;
 
     Position() = default;
-    Position(const Position &pos) : x(pos.x), y(pos.y), z(pos.z), t(pos.t)
-    {}
-    Position(const short x_, const short y_, const short z_, const short t_) : x(x_), y(y_), z(z_), t(t_)
-    {}
+    Position(const Position &pos) : x(pos.x), y(pos.y), z(pos.z), t(pos.t) {}
+    Position(const short x_, const short y_, const short z_, const short t_) : x(x_), y(y_), z(z_), t(t_) {}
     Position &operator=(const Position &pos);
 
     short &operator[](int dir);
@@ -81,6 +77,6 @@ public:
 
 std::ostream &operator<<(std::ostream &, const Position &);
 
-}  // namespace kuqcd
+} // namespace kuqcd
 
 #endif

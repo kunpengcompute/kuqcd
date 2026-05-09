@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -182,8 +182,8 @@ void SU3<T, Nbatch, Recon>::Unitarize(int j)
     double Cim;
 
     quadnorm = m[0].z[j] * m[0].z[j] + m[0].z[j + Nbatch] * m[0].z[j + Nbatch] + m[1].z[j] * m[1].z[j] +
-            m[1].z[j + Nbatch] * m[1].z[j + Nbatch] + m[2].z[j] * m[2].z[j] +
-            m[2].z[j + Nbatch] * m[2].z[j + Nbatch];
+               m[1].z[j + Nbatch] * m[1].z[j + Nbatch] + m[2].z[j] * m[2].z[j] +
+               m[2].z[j + Nbatch] * m[2].z[j + Nbatch];
 
     invnorm = 1.0 / sqrt(quadnorm);
 
@@ -195,10 +195,10 @@ void SU3<T, Nbatch, Recon>::Unitarize(int j)
     m[2].z[j + Nbatch] *= invnorm;
 
     Cre = m[3].z[j] * m[0].z[j] + m[3].z[j + Nbatch] * m[0].z[j + Nbatch] + m[4].z[j] * m[1].z[j] +
-        m[4].z[j + Nbatch] * m[1].z[j + Nbatch] + m[5].z[j] * m[2].z[j] + m[5].z[j + Nbatch] * m[2].z[j + Nbatch];
+          m[4].z[j + Nbatch] * m[1].z[j + Nbatch] + m[5].z[j] * m[2].z[j] + m[5].z[j + Nbatch] * m[2].z[j + Nbatch];
 
     Cim = m[3].z[j + Nbatch] * m[0].z[j] - m[3].z[j] * m[0].z[j + Nbatch] + m[4].z[j + Nbatch] * m[1].z[j] -
-        m[4].z[j] * m[1].z[j + Nbatch] + m[5].z[j + Nbatch] * m[2].z[j] - m[5].z[j] * m[2].z[j + Nbatch];
+          m[4].z[j] * m[1].z[j + Nbatch] + m[5].z[j + Nbatch] * m[2].z[j] - m[5].z[j] * m[2].z[j + Nbatch];
 
     m[3].z[j] -= Cre * m[0].z[j] - Cim * m[0].z[j + Nbatch];
     m[3].z[j + Nbatch] -= Cre * m[0].z[j + Nbatch] + Cim * m[0].z[j];
@@ -208,8 +208,8 @@ void SU3<T, Nbatch, Recon>::Unitarize(int j)
     m[5].z[j + Nbatch] -= Cre * m[2].z[j + Nbatch] + Cim * m[2].z[j];
 
     quadnorm = m[3].z[j] * m[3].z[j] + m[3].z[j + Nbatch] * m[3].z[j + Nbatch] + m[4].z[j] * m[4].z[j] +
-            m[4].z[j + Nbatch] * m[4].z[j + Nbatch] + m[5].z[j] * m[5].z[j] +
-            m[5].z[j + Nbatch] * m[5].z[j + Nbatch];
+               m[4].z[j + Nbatch] * m[4].z[j + Nbatch] + m[5].z[j] * m[5].z[j] +
+               m[5].z[j + Nbatch] * m[5].z[j + Nbatch];
 
     invnorm = 1.0 / sqrt(quadnorm);
 
@@ -224,22 +224,21 @@ void SU3<T, Nbatch, Recon>::Unitarize(int j)
         m[6].z[j] = (m[1].z[j] * m[5].z[j] - m[1].z[j + Nbatch] * m[5].z[j + Nbatch]) -
                     (m[2].z[j] * m[4].z[j] - m[2].z[j + Nbatch] * m[4].z[j + Nbatch]);
         m[6].z[j + Nbatch] = -(m[1].z[j + Nbatch] * m[5].z[j] + m[1].z[j] * m[5].z[j + Nbatch]) +
-                            (m[2].z[j + Nbatch] * m[4].z[j] + m[2].z[j] * m[4].z[j + Nbatch]);
+                             (m[2].z[j + Nbatch] * m[4].z[j] + m[2].z[j] * m[4].z[j + Nbatch]);
 
         m[7].z[j] = (m[2].z[j] * m[3].z[j] - m[2].z[j + Nbatch] * m[3].z[j + Nbatch]) -
                     (m[0].z[j] * m[5].z[j] - m[0].z[j + Nbatch] * m[5].z[j + Nbatch]);
         m[7].z[j + Nbatch] = -(m[2].z[j + Nbatch] * m[3].z[j] + m[2].z[j] * m[3].z[j + Nbatch]) +
-                            (m[0].z[j + Nbatch] * m[5].z[j] + m[0].z[j] * m[5].z[j + Nbatch]);
+                             (m[0].z[j + Nbatch] * m[5].z[j] + m[0].z[j] * m[5].z[j + Nbatch]);
 
         m[8].z[j] = (m[0].z[j] * m[4].z[j] - m[0].z[j + Nbatch] * m[4].z[j + Nbatch]) -
                     (m[1].z[j] * m[3].z[j] - m[1].z[j + Nbatch] * m[3].z[j + Nbatch]);
         m[8].z[j + Nbatch] = -(m[0].z[j + Nbatch] * m[4].z[j] + m[0].z[j] * m[4].z[j + Nbatch]) +
-                            (m[1].z[j + Nbatch] * m[3].z[j] + m[1].z[j] * m[3].z[j + Nbatch]);
+                             (m[1].z[j + Nbatch] * m[3].z[j] + m[1].z[j] * m[3].z[j + Nbatch]);
     } else if constexpr (Recon == KUQCD_GAUGE_RECON_U14) {
         m[6].z[j] = 1.0;
         m[6].z[j + Nbatch] = 0.0;
     }
-    
 }
 
 template <typename T, int Nbatch, KuQCDReconstructType Recon>
@@ -384,4 +383,4 @@ INSTANTIATE_SU3_TEMPLATE(double, 1, KUQCD_GAUGE_RECON_U14);
 INSTANTIATE_SU3_TEMPLATE(float, 16, KUQCD_GAUGE_RECON_U14);
 INSTANTIATE_SU3_TEMPLATE(double, 8, KUQCD_GAUGE_RECON_U14);
 
-}  // namespace kuqcd
+} // namespace kuqcd

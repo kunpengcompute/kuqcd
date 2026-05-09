@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -32,8 +32,8 @@ ColorSpinor<T, Nbatch>::ColorSpinor(const Complex<T, Nbatch> &other)
 }
 
 template <typename T, int Nbatch>
-ColorSpinor<T, Nbatch>::ColorSpinor(
-    const Complex<T, Nbatch> &red, const Complex<T, Nbatch> &green, const Complex<T, Nbatch> &blue)
+ColorSpinor<T, Nbatch>::ColorSpinor(const Complex<T, Nbatch> &red, const Complex<T, Nbatch> &green,
+                                    const Complex<T, Nbatch> &blue)
 {
     c[0] = red;
     c[1] = green;
@@ -178,19 +178,18 @@ void ColorSpinor<T, Nbatch>::RandGauss(uint4 *state)
     phi2 = 2.0 * M_PI * GetRand<T>(state);
 
     radius0 = GetRand<T>(state);
-    radius0 = radius0 + (1.0 - radius0) * MinVal<T>();  // exclude 0 from random numbers!
+    radius0 = radius0 + (1.0 - radius0) * MinVal<T>(); // exclude 0 from random numbers!
     radius0 = sqrt(-1.0 * log(radius0));
     radius1 = GetRand<T>(state);
-    radius1 = radius1 + (1.0 - radius1) * MinVal<T>();  // exclude 0 from random numbers!
+    radius1 = radius1 + (1.0 - radius1) * MinVal<T>(); // exclude 0 from random numbers!
     radius1 = sqrt(-1.0 * log(radius1));
     radius2 = GetRand<T>(state);
-    radius2 = radius2 + (1.0 - radius2) * MinVal<T>();  // exclude 0 from random numbers!
+    radius2 = radius2 + (1.0 - radius2) * MinVal<T>(); // exclude 0 from random numbers!
     radius2 = sqrt(-1.0 * log(radius2));
 
     c[0] = Complex<T, Nbatch>(radius0 * cos(phi0), radius0 * sin(phi0));
     c[1] = Complex<T, Nbatch>(radius1 * cos(phi1), radius1 * sin(phi1));
     c[2] = Complex<T, Nbatch>(radius2 * cos(phi2), radius2 * sin(phi2));
-    
 }
 
 template <typename T, int Nbatch>
@@ -347,4 +346,4 @@ INSTANTIATE_COLOR_SPINOR_TEMPLATE(double, 1);
 INSTANTIATE_COLOR_SPINOR_TEMPLATE(float, 16);
 INSTANTIATE_COLOR_SPINOR_TEMPLATE(double, 8);
 
-}  // namespace kuqcd
+} // namespace kuqcd

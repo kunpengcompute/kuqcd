@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -14,7 +14,6 @@
 #include <iomanip>
 
 #include "kuqcd_complex.h"
-
 
 namespace kuqcd {
 
@@ -65,7 +64,7 @@ Complex<T, Nbatch> &Complex<T, Nbatch>::operator=(T real)
 template <typename T, int Nbatch>
 Complex<T, Nbatch> &Complex<T, Nbatch>::operator=(const Complex<T, Nbatch> &other)
 {
-    if (this != &other) {  // Self-assignment check
+    if (this != &other) { // Self-assignment check
         for (int i = 0; i < 2 * Nbatch; ++i) {
             z[i] = other.z[i];
         }
@@ -362,4 +361,4 @@ INSTANTIATE_COMPLEX_TEMPLATE(double, 1);
 INSTANTIATE_COMPLEX_TEMPLATE(float, 16);
 INSTANTIATE_COMPLEX_TEMPLATE(double, 8);
 
-}  // namespace kuqcd
+} // namespace kuqcd

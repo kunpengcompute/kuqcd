@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -19,12 +19,12 @@ namespace kuqcd {
 
 class LattBase {
 public:
-    Lattice latSupBulkFL;  // supper bulk flat lattice
-    Lattice latSupBulkCB;  // supper bulk checkerboard lattice
-    Lattice latSubFullFL;  // sub full flat lattice
-    Lattice latSubFullCB;  // sub full checkerboard lattice
-    Lattice latSubBulkFL;  // sub bulk flat lattice
-    Lattice latSubBulkCB;  // sub bulk checkerboard lattice
+    Lattice latSupBulkFL; // supper bulk flat lattice
+    Lattice latSupBulkCB; // supper bulk checkerboard lattice
+    Lattice latSubFullFL; // sub full flat lattice
+    Lattice latSubFullCB; // sub full checkerboard lattice
+    Lattice latSubBulkFL; // sub bulk flat lattice
+    Lattice latSubBulkCB; // sub bulk checkerboard lattice
     Lattice *latFull;
     Lattice *latBulk;
     size_t lenFull;
@@ -42,12 +42,13 @@ public:
 
     LattBase() = default;
     LattBase(const LattBase &latBase);
-    LattBase(const Lattice &lat, const std::array<unsigned short, 4> &gridDim_, unsigned short depth, KuQCDGaugeOrder order_,
-        KuQCDRankOrder rankOrder_, KuQCDPrecision prec_, KuQCDSiteSubset parity_ = KUQCD_ALL);
+    LattBase(const Lattice &lat, const std::array<unsigned short, 4> &gridDim_, unsigned short depth,
+             KuQCDGaugeOrder order_, KuQCDRankOrder rankOrder_, KuQCDPrecision prec_,
+             KuQCDSiteSubset parity_ = KUQCD_ALL);
     LattBase &operator=(const LattBase &latBase);
     void InitIdx();
 };
 
-}  // namespace kuqcd
+} // namespace kuqcd
 
 #endif

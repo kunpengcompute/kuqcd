@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -28,8 +28,10 @@ LatticeField<FieldT>::LatticeField(const LatticeField<FieldT> &lf)
 
 template <typename FieldT>
 LatticeField<FieldT>::LatticeField(LattBase &latBase_, const int locSize_)
-    : KMemory(locSize_ * latBase_.lenFull * latBase_.prec), 
-        latBase(latBase_), locSize(locSize_), length(latBase_.lenFull)
+    : KMemory(locSize_ * latBase_.lenFull * latBase_.prec),
+      latBase(latBase_),
+      locSize(locSize_),
+      length(latBase_.lenFull)
 {
     data = static_cast<FieldT *>(this->rawPtr);
 }
@@ -58,4 +60,4 @@ INSTANTIATE_LATTICE_FIELD_TEMPLATE(double, 8);
 
 template class LatticeField<uint4>;
 
-}  // namespace kuqcd
+} // namespace kuqcd

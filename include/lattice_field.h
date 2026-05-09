@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -11,7 +11,6 @@
  */
 #ifndef LATTICE_FIELD_H
 #define LATTICE_FIELD_H
-
 
 #include "space_time.h"
 #include "kuqcd_memory.h"
@@ -51,6 +50,6 @@ DECLARE_EXTERN_LATTICE_FIELD_TEMPLATE(double, 8);
 
 extern template class LatticeField<uint4>;
 
-}  // namespace kuqcd
+} // namespace kuqcd
 
 #endif

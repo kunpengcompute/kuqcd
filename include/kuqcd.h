@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -31,5 +31,5 @@ KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *
 
 void kuqcd_gauge_free();
 void kuqcd_end();
-}  // namespace kuqcd
+} // namespace kuqcd
 #endif

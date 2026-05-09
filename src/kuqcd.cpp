@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -39,8 +39,8 @@ std::array<unsigned short, 4> g_grid_dim;
 
 // set latbase to g_latbase_all_halo3,g_latbase_all_halo0,g_latbase_even_halo0,g_latbase_odd_halo0
 KuQCDStatus set_latbase(unsigned int nx, unsigned int ny, unsigned int nz, unsigned int nt, int halo_depth,
-    KuQCDRankOrder od, KuQCDSiteSubset site_subset, KuQCDGaugeOrder gauge_order, KuQCDPrecision prec,
-    std::array<unsigned short, 4> grid_dim, LattBase **latbase)
+                        KuQCDRankOrder od, KuQCDSiteSubset site_subset, KuQCDGaugeOrder gauge_order,
+                        KuQCDPrecision prec, std::array<unsigned short, 4> grid_dim, LattBase **latbase)
 {
     if (gauge_order < KUQCD_NORMAL_ORDER || gauge_order >= KUQCD_INVALID_ORDER) {
         rootLogger.Error("gauge_order is not valid");
@@ -100,7 +100,6 @@ KuQCDStatus set_latbase(unsigned int nx, unsigned int ny, unsigned int nz, unsig
     return KUQCD_SUCCESS;
 }
 
-
 template <typename T, int Nbatch, KuQCDReconstructType ReconS>
 KuQCDStatus kuqcd_gaugefield_set_values(GaugeField<T, Nbatch, ReconS> *gauge, T *values)
 {
@@ -126,7 +125,6 @@ KuQCDStatus kuqcd_gaugefield_set_values(GaugeField<T, Nbatch, ReconS> *gauge, T 
     }
     return KUQCD_SUCCESS;
 }
-
 
 template <typename T, int Nbatch, int Ns>
 KuQCDStatus kuqcd_spinorfield_set_values(SpinorField<T, Nbatch, Ns> *spinor, T *values)
@@ -170,10 +168,10 @@ KuQCDStatus kuqcd_spinorfield_get_values(SpinorField<T, Nbatch, Ns> *spinor, T *
     return KUQCD_SUCCESS;
 }
 
-
 template <typename T, int Nbatch, int Ns, KuQCDReconstructType ReconS, KuQCDReconstructType ReconN>
 KuQCDStatus kuqcd_inverter(Inverter<T, SpinorField<T, Nbatch, Ns>> **inverter,
-    GaugeField<T, Nbatch, ReconS> *gauge_smeared, GaugeField<T, Nbatch, ReconN> *gauge_naik, void **_hp_x, void *_hp_b, KuQCDInvertParam &param)
+                           GaugeField<T, Nbatch, ReconS> *gauge_smeared, GaugeField<T, Nbatch, ReconN> *gauge_naik,
+                           void **_hp_x, void *_hp_b, KuQCDInvertParam &param)
 {
     if (inverter == nullptr || gauge_smeared == nullptr || gauge_naik == nullptr) {
         rootLogger.Error("inverter or gauge_smeared or gauge_naik is nullptr");
@@ -189,7 +187,7 @@ KuQCDStatus kuqcd_inverter(Inverter<T, SpinorField<T, Nbatch, Ns>> **inverter,
     }
     if (param.dslash_type != KUQCD_HISQ_DIRAC && param.dslash_type != KUQCD_HISQPC_DIRAC) {
         rootLogger.Error("dirac type is error!");
-        return KUQCD_ERR_INVALID_PARAM;  
+        return KUQCD_ERR_INVALID_PARAM;
     }
     if (param.matpc_type != KUQCD_EVEN_EVEN && param.matpc_type != KUQCD_ODD_ODD) {
         rootLogger.Error("matpc_type is error!");
@@ -199,17 +197,16 @@ KuQCDStatus kuqcd_inverter(Inverter<T, SpinorField<T, Nbatch, Ns>> **inverter,
         rootLogger.Error("num_shift < 0!");
         return KUQCD_ERR_INVALID_PARAM;
     }
-    KuQCDSiteSubset src_parity = (param.matpc_type == KUQCD_EVEN_EVEN)? KUQCD_EVEN : KUQCD_ODD;
-    T *src_value = (T*) _hp_b;
-    T * dst_value[param.num_shift];
-    for(int i = 0;i < param.num_shift;i++) {
-        dst_value[i] = (T*)(_hp_x[i]);
+    KuQCDSiteSubset src_parity = (param.matpc_type == KUQCD_EVEN_EVEN) ? KUQCD_EVEN : KUQCD_ODD;
+    T *src_value = (T *)_hp_b;
+    T *dst_value[param.num_shift];
+    for (int i = 0; i < param.num_shift; i++) {
+        dst_value[i] = (T *)(_hp_x[i]);
     }
     int nx = gauge_smeared->latBase.latSupBulkFL.nx * Nbatch;
     int ny = gauge_smeared->latBase.latSupBulkFL.ny;
     int nz = gauge_smeared->latBase.latSupBulkFL.nz;
     int nt = gauge_smeared->latBase.latSupBulkFL.nt;
-    
 
     KuQCDGaugeOrder gauge_order = gauge_smeared->latBase.gauge_order;
     KuQCDRankOrder od = gauge_smeared->latBase.rankOrder;
@@ -218,18 +215,18 @@ KuQCDStatus kuqcd_inverter(Inverter<T, SpinorField<T, Nbatch, Ns>> **inverter,
     if (rtn != KUQCD_SUCCESS) {
         return rtn;
     }
-    SpinorField<T, Nbatch, Ns>* src = new SpinorField<T, Nbatch, Ns>(*latbase);
+    SpinorField<T, Nbatch, Ns> *src = new SpinorField<T, Nbatch, Ns>(*latbase);
 
     kuqcd_spinorfield_set_values<T, Nbatch, Ns>(src, src_value);
-    SpinorField<T, Nbatch, Ns>* dst[param.num_shift];
+    SpinorField<T, Nbatch, Ns> *dst[param.num_shift];
     Dirac<SpinorField<T, Nbatch, Ns>> *dirac = nullptr;
     SpinorField<T, Nbatch, Ns> *tmp = nullptr;
-    T * shift = nullptr;
+    T *shift = nullptr;
     for (int i = 0; i < param.num_shift; ++i) {
         dst[i] = nullptr;
     }
     for (int i = 0; i < param.num_shift; ++i) {
-        dst[i] = new(std::nothrow) SpinorField<T, Nbatch, Ns>(*latbase);
+        dst[i] = new (std::nothrow) SpinorField<T, Nbatch, Ns>(*latbase);
         if (dst[i] == nullptr) {
             rtn = KUQCD_ERR_NO_MEMORY;
             goto mem_release;
@@ -241,40 +238,41 @@ KuQCDStatus kuqcd_inverter(Inverter<T, SpinorField<T, Nbatch, Ns>> **inverter,
         return KUQCD_ERR_UNEXPECTED_CALL_ORDER;
     }
     if (param.matpc_type == KUQCD_ODD_ODD) {
-        tmp = new(std::nothrow) SpinorField<T, Nbatch, Ns>(*g_latbase_even_halo0);
+        tmp = new (std::nothrow) SpinorField<T, Nbatch, Ns>(*g_latbase_even_halo0);
         if (tmp == nullptr) {
             rtn = KUQCD_ERR_NO_MEMORY;
             goto mem_release;
         }
     } else {
-        tmp = new(std::nothrow) SpinorField<T, Nbatch, Ns>(*g_latbase_odd_halo0);
+        tmp = new (std::nothrow) SpinorField<T, Nbatch, Ns>(*g_latbase_odd_halo0);
         if (tmp == nullptr) {
             rtn = KUQCD_ERR_NO_MEMORY;
             goto mem_release;
         }
     }
 
-    dirac = new(std::nothrow) DiracHISQ<T, Nbatch, ReconS, ReconN>(param.dslash_type, *gauge_smeared, *gauge_naik, 0, tmp);
+    dirac = new (std::nothrow)
+        DiracHISQ<T, Nbatch, ReconS, ReconN>(param.dslash_type, *gauge_smeared, *gauge_naik, 0, tmp);
     if (dirac == nullptr) {
         rtn = KUQCD_ERR_NO_MEMORY;
         goto mem_release;
     }
-    *inverter = new(std::nothrow) CGM<T, SpinorField<T, Nbatch, Ns>>(param.inverter_type, dirac);
+    *inverter = new (std::nothrow) CGM<T, SpinorField<T, Nbatch, Ns>>(param.inverter_type, dirac);
     if (*inverter == nullptr) {
         rtn = KUQCD_ERR_NO_MEMORY;
         goto mem_release;
     }
-    shift  = (T*) malloc(param.num_shift * sizeof(T));
+    shift = (T *)malloc(param.num_shift * sizeof(T));
     if (shift == nullptr) {
         rtn = KUQCD_ERR_NO_MEMORY;
         goto mem_release;
     }
-    for (int i = 0; i< param.num_shift; i++) {
+    for (int i = 0; i < param.num_shift; i++) {
         shift[i] = (T)param.shifts[i];
     }
     param.iter = (*inverter)->Invert(param.num_shift, shift, *src, dst, param.tol, param.max_iter);
-    
-    for (int i = 0 ;i< param.num_shift; i++) {
+
+    for (int i = 0; i < param.num_shift; i++) {
         kuqcd_spinorfield_get_values<T, Nbatch, Ns>(dst[i], dst_value[i]);
     }
 mem_release:
@@ -302,7 +300,8 @@ KuQCDStatus kuqcd_init()
     return KUQCD_SUCCESS;
 }
 
-KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param) {
+KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param)
+{
     try {
         if (h_gauge == nullptr || param == nullptr) {
             rootLogger.Error("h_gauge or param is nullptr");
@@ -318,22 +317,24 @@ KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param) {
             return KUQCD_ERR_INVALID_PARAM;
         }
         if (param->recon != KUQCD_GAUGE_RECON_NO) {
-            if (param->recon ==  KUQCD_GAUGE_RECON_U14 || param->recon == KUQCD_GAUGE_RECON_12 || param->recon == KUQCD_GAUGE_RECON_8) {
+            if (param->recon == KUQCD_GAUGE_RECON_U14 || param->recon == KUQCD_GAUGE_RECON_12 ||
+                param->recon == KUQCD_GAUGE_RECON_8) {
                 rootLogger.Error("recon is not support");
                 return KUQCD_ERR_UNSUPPORTED;
             }
             rootLogger.Error("recon is invalid");
             return KUQCD_ERR_INVALID_PARAM;
         }
-        
+
         if (param->lat[0] == 0 || param->lat[1] == 0 || param->lat[2] == 0 || param->lat[3] == 0) {
             rootLogger.Error("param->lat is 0");
             return KUQCD_ERR_INVALID_PARAM;
         }
 
         LattBase *latbase = nullptr;
-        KuQCDStatus rtn = set_latbase(
-            param->lat[0], param->lat[1], param->lat[2], param->lat[3], param->halo_depth, param->od, param->site_subset, param->gauge_order, param->prec, g_grid_dim, &latbase);
+        KuQCDStatus rtn = set_latbase(param->lat[0], param->lat[1], param->lat[2], param->lat[3], param->halo_depth,
+                                      param->od, param->site_subset, param->gauge_order, param->prec, g_grid_dim,
+                                      &latbase);
         if (rtn != KUQCD_SUCCESS) {
             return rtn;
         }
@@ -381,7 +382,7 @@ KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param) {
                 if (param->prec == KUQCD_SINGLE) {
                     g_gauge_naik_f1 = new GaugeField<float, 1, recon>(*latbase, *g_comm);
                     kuqcd_gaugefield_set_values<float, 1, recon>(g_gauge_naik_f1, (float *)h_gauge);
-                    return KUQCD_SUCCESS;       
+                    return KUQCD_SUCCESS;
                 }
                 if (param->prec == KUQCD_DOUBLE) {
                     g_gauge_naik_d1 = new GaugeField<double, 1, recon>(*latbase, *g_comm);
@@ -391,17 +392,17 @@ KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param) {
             }
         }
     } catch (std::exception &e) {
-        if (typeid (e) == typeid(std::bad_alloc)) {
+        if (typeid(e) == typeid(std::bad_alloc)) {
             return KUQCD_ERR_NO_MEMORY;
         } else {
             return KUQCD_ERR_UNKNOWN_ERROR;
         }
     }
     return KUQCD_SUCCESS;
-    
 }
 
-KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *param) {
+KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *param)
+{
     try {
         if (_hp_x == nullptr || _hp_b == nullptr || param == nullptr) {
             rootLogger.Error("hp_x or hp_b or param is nullptr");
@@ -413,23 +414,27 @@ KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *
         }
         if (g_gauge_smeared_f16 != nullptr && g_gauge_naik_f16 != nullptr) {
             const int Nbatch = 16;
-            return kuqcd_inverter<float, Nbatch, 1>(&g_inverter_f16, g_gauge_smeared_f16, g_gauge_naik_f16, _hp_x, _hp_b, *param);
+            return kuqcd_inverter<float, Nbatch, 1>(&g_inverter_f16, g_gauge_smeared_f16, g_gauge_naik_f16, _hp_x,
+                                                    _hp_b, *param);
         }
         if (g_gauge_smeared_d8 != nullptr && g_gauge_naik_d8 != nullptr) {
             const int Nbatch = 8;
-            return kuqcd_inverter<double, Nbatch, 1>(&g_inverter_d8, g_gauge_smeared_d8, g_gauge_naik_d8, _hp_x, _hp_b, *param);
+            return kuqcd_inverter<double, Nbatch, 1>(&g_inverter_d8, g_gauge_smeared_d8, g_gauge_naik_d8, _hp_x, _hp_b,
+                                                     *param);
         }
-        
+
         if (g_gauge_smeared_f1 != nullptr && g_gauge_naik_f1 != nullptr) {
             const int Nbatch = 1;
-            return kuqcd_inverter<float, Nbatch, 1>(&g_inverter_f1, g_gauge_smeared_f1, g_gauge_naik_f1, _hp_x, _hp_b, *param);
+            return kuqcd_inverter<float, Nbatch, 1>(&g_inverter_f1, g_gauge_smeared_f1, g_gauge_naik_f1, _hp_x, _hp_b,
+                                                    *param);
         }
         if (g_gauge_smeared_d1 != nullptr && g_gauge_naik_d1 != nullptr) {
             const int Nbatch = 1;
-            return kuqcd_inverter<double, Nbatch, 1>(&g_inverter_d1, g_gauge_smeared_d1, g_gauge_naik_d1, _hp_x, _hp_b, *param);
+            return kuqcd_inverter<double, Nbatch, 1>(&g_inverter_d1, g_gauge_smeared_d1, g_gauge_naik_d1, _hp_x, _hp_b,
+                                                     *param);
         }
     } catch (std::exception &e) {
-        if (typeid (e) == typeid(std::bad_alloc)) {
+        if (typeid(e) == typeid(std::bad_alloc)) {
             return KUQCD_ERR_NO_MEMORY;
         } else {
             return KUQCD_ERR_UNKNOWN_ERROR;
@@ -439,7 +444,8 @@ KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *
     return KUQCD_ERR_UNKNOWN_TYPE;
 }
 
-void kuqcd_gauge_free(){
+void kuqcd_gauge_free()
+{
     delete g_latbase_even_halo0;
     g_latbase_even_halo0 = nullptr;
     delete g_latbase_odd_halo0;
@@ -457,7 +463,7 @@ void kuqcd_gauge_free(){
     delete g_gauge_smeared_d1;
     g_gauge_smeared_d1 = nullptr;
     delete g_gauge_smeared_d8;
-    g_gauge_smeared_d8 = nullptr; 
+    g_gauge_smeared_d8 = nullptr;
 
     delete g_gauge_naik_f1;
     g_gauge_naik_f1 = nullptr;
@@ -466,8 +472,7 @@ void kuqcd_gauge_free(){
     delete g_gauge_naik_d1;
     g_gauge_naik_d1 = nullptr;
     delete g_gauge_naik_d8;
-    g_gauge_naik_d8 = nullptr; 
-    
+    g_gauge_naik_d8 = nullptr;
 }
 void kuqcd_end()
 {
@@ -481,6 +486,4 @@ void kuqcd_end()
     g_inverter_f16 = nullptr;
 }
 
-
-
-}  // namespace kuqcd
+} // namespace kuqcd

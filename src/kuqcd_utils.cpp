@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -39,13 +39,14 @@ int oob_barrier_callback(void *group)
 }
 #endif
 
-namespace kuqcd
+namespace kuqcd {
+bool pathExists(const std::string &path)
 {
-bool pathExists(const std::string &path) {
     struct stat info;
     return stat(path.c_str(), &info) == 0 && S_ISDIR(info.st_mode);
 }
-bool numaHasHugePages(int nodeId) {
+bool numaHasHugePages(int nodeId)
+{
     // 构建NUMA节点路径
     std::string basePath = "/sys/devices/system/node/node" + std::to_string(nodeId) + "/hugepages";
 
@@ -84,5 +85,5 @@ bool numaHasHugePages(int nodeId) {
     }
     closedir(dir);
     return foundHugePages;
-} 
 }
+} // namespace kuqcd

@@ -1,4 +1,4 @@
-SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)    
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 LIB_PATH="$SCRIPT_DIR/../build/lib"
 LIB_ABS_PATH=$(readlink -f "$LIB_PATH")
 INC_PATH="$SCRIPT_DIR/../include"

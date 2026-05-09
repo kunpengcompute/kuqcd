@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -46,7 +46,7 @@ LattBase::LattBase(const LattBase &latBase)
 }
 
 LattBase::LattBase(const Lattice &lat, const std::array<unsigned short, 4> &gridDim_, unsigned short depth,
-    KuQCDGaugeOrder order_, KuQCDRankOrder rankOrder_, KuQCDPrecision prec_, KuQCDSiteSubset parity_)
+                   KuQCDGaugeOrder order_, KuQCDRankOrder rankOrder_, KuQCDPrecision prec_, KuQCDSiteSubset parity_)
 {
     gridDim = gridDim_;
     haloDepth = depth;
@@ -70,8 +70,8 @@ LattBase::LattBase(const Lattice &lat, const std::array<unsigned short, 4> &grid
     }
 
     if ((gauge_order == KUQCD_BATCH_ORDER) && (gridDim[0] > 1)) {
-        Rank0Fprintf(
-            stderr, "if using batch gauge_order the x direction should not communicate! %s %d\n", __FILE__, __LINE__);
+        Rank0Fprintf(stderr, "if using batch gauge_order the x direction should not communicate! %s %d\n", __FILE__,
+                     __LINE__);
     }
 
     if (gauge_order == KUQCD_BATCH_ORDER) {
@@ -83,8 +83,8 @@ LattBase::LattBase(const Lattice &lat, const std::array<unsigned short, 4> &grid
             Rank0Fprintf(stderr, "error precision! %s %d\n", __FILE__, __LINE__);
         }
         if ((lat[0] % Nbatch) != 0) {
-            Rank0Fprintf(
-                stderr, "x direction lattice %d cannot divided by %d! %s %d\n", lat[0], Nbatch, __FILE__, __LINE__);
+            Rank0Fprintf(stderr, "x direction lattice %d cannot divided by %d! %s %d\n", lat[0], Nbatch, __FILE__,
+                         __LINE__);
         }
     } else if (gauge_order == KUQCD_NORMAL_ORDER) {
         Nbatch = 1;
@@ -94,26 +94,16 @@ LattBase::LattBase(const Lattice &lat, const std::array<unsigned short, 4> &grid
 
     for (int i = 0; i < 4; i++) {
         if ((lat[i] % gridDim[i]) != 0) {
-            Rank0Fprintf(stderr,
-                "dir %d lattice %d cannot be splitted into %d part! %s %d\n",
-                i,
-                lat[i],
-                gridDim[i],
-                __FILE__,
-                __LINE__);
+            Rank0Fprintf(stderr, "dir %d lattice %d cannot be splitted into %d part! %s %d\n", i, lat[i], gridDim[i],
+                         __FILE__, __LINE__);
         }
         n[i] = lat[i] / gridDim[i];
         n[i] = (i == 0) ? (n[i] / Nbatch) : n[i];
 
         if (gridDim[i] > 1) {
             if (n[i] < depth) {
-                Rank0Fprintf(stderr,
-                    "dir %d lattice %d is smaller than halo depth %d! %s %d\n",
-                    i,
-                    n[i],
-                    depth,
-                    __FILE__,
-                    __LINE__);
+                Rank0Fprintf(stderr, "dir %d lattice %d is smaller than halo depth %d! %s %d\n", i, n[i], depth,
+                             __FILE__, __LINE__);
             }
             nFull[i] = n[i] + 2 * depth;
         } else {
@@ -221,4 +211,4 @@ void LattBase::InitIdx()
     }
 }
 
-}  // namespace kuqcd
+} // namespace kuqcd

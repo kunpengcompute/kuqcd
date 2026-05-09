@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -20,13 +20,12 @@ template <typename VecT>
 class Dirac {
 public:
     KuQCDDslashType diracType = KUQCD_INVALID_DIRAC;
-    Dirac(KuQCDDslashType dt) : diracType(dt)
-    {}
+    Dirac(KuQCDDslashType dt) : diracType(dt) {}
     virtual ~Dirac() {};
     virtual void Dslash(const VecT &src, VecT &dst, bool update) = 0;
     virtual void MdaggM(const VecT &src, VecT &dst, bool update) = 0;
 };
 
-}  // namespace kuqcd
+} // namespace kuqcd
 
 #endif

@@ -1,4 +1,4 @@
-SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)          
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 LIB_PATH="$SCRIPT_DIR/../build/lib"
 LIB_ABS_PATH=$(readlink -f "$LIB_PATH")
 export LD_LIBRARY_PATH="$LIB_ABS_PATH:${LD_LIBRARY_PATH:-}"

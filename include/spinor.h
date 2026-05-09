@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2026 Huawei Technologies Co., Ltd. All Rights Reserved.
  *
  * KuQCD is licensed under Mulan PSL v2.
@@ -11,7 +11,6 @@
  */
 #ifndef SPINOR_H
 #define SPINOR_H
-
 
 #include "kuqcd_complex.h"
 
@@ -39,7 +38,7 @@ public:
     ColorSpinor<T, Nbatch> &operator=(const ColorSpinor<T, Nbatch> &other);
     ColorSpinor<T, Nbatch> &operator+=(const ColorSpinor<T, Nbatch> &other);
     ColorSpinor<T, Nbatch> &operator-=(const ColorSpinor<T, Nbatch> &other);
-    ColorSpinor<T, Nbatch> &operator*=(const ColorSpinor<T, Nbatch> &other);  // Component-wise multiplication
+    ColorSpinor<T, Nbatch> &operator*=(const ColorSpinor<T, Nbatch> &other); // Component-wise multiplication
     ColorSpinor<T, Nbatch> &operator*=(T scalar);
     ColorSpinor<T, Nbatch> &operator/=(T scalar);
 
@@ -58,10 +57,10 @@ public:
 
 // Physics operations
 template <typename T, int Nbatch>
-T Norm2(const ColorSpinor<T, Nbatch> &a);  // Sum of |component|^2 over all colors and batch elements
+T Norm2(const ColorSpinor<T, Nbatch> &a); // Sum of |component|^2 over all colors and batch elements
 
 template <typename T, int Nbatch>
-T Norm(const ColorSpinor<T, Nbatch> &a);  // sqrt(norm_sq())
+T Norm(const ColorSpinor<T, Nbatch> &a); // sqrt(norm_sq())
 
 template <typename T, int Nbatch>
 ColorSpinor<T, Nbatch> Conj(const ColorSpinor<T, Nbatch> &a);
@@ -128,5 +127,5 @@ DECLARE_COLOR_SPINOR_EXTERN_TEMPLATE(double, 1);
 DECLARE_COLOR_SPINOR_EXTERN_TEMPLATE(float, 16);
 DECLARE_COLOR_SPINOR_EXTERN_TEMPLATE(double, 8);
 
-}  // namespace kuqcd
+} // namespace kuqcd
 #endif
