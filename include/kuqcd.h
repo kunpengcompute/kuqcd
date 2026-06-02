@@ -23,13 +23,14 @@
 #include "kuqcd_enum.h"
 #include "command_line.h"
 
+#define kuqcd_export __attribute__((visibility("default")))
 namespace kuqcd {
 
-KuQCDStatus kuqcd_init();
-KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param);
-KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *param);
+kuqcd_export KuQCDStatus kuqcd_init();
+kuqcd_export KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param);
+kuqcd_export KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *param);
 
-void kuqcd_gauge_free();
-void kuqcd_end();
+kuqcd_export void kuqcd_gauge_free();
+kuqcd_export void kuqcd_end();
 } // namespace kuqcd
 #endif
