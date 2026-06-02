@@ -86,7 +86,7 @@ endif()
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstack-protector-strong")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstack-protector-strong")
 
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s -Wl,-z,relro -Wl,-z,now")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack")
 
 if(USE_KUPL)
     if(USE_KUPL_COMM AND USE_KUPL_ALL)
@@ -126,7 +126,7 @@ mark_as_advanced(KUQCD_INSTALL_ALL_TESTS)
 ####################################################################################
 
 ### bisheng5.0 need
-add_compile_options(-Werror -Wall -Wno-instantiation-after-specialization )
+add_compile_options(-Werror -Wall -Wno-instantiation-after-specialization -fPIC -fstack-protector -fvisibility=hidden -D_FORTIFY_SOURCE=2 -ftrapv)
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 19.0)
     add_compile_options($<$<COMPILE_LANGUAGE:CXX>:-Wno-missing-designated-field-initializers>)
