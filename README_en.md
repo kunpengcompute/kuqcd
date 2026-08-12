@@ -26,13 +26,13 @@ KuQCD is a C/C++ acceleration library for lattice QCD (LQCD), purpose-built for 
 #### Extract the HPCKit software package (replace the version number in the example with your actual version).
 
 ```shell
-tar xvf HPCKit_26.0.RC1_Linux-aarch64.tar.gz
+tar xvf HPCKit_26.2.0_Linux-aarch64.tar.gz
 ```
 
 #### Install HPCKit.
 
 ```shell
-sh HPCKit_26.0.RC1_Linux-aarch64/install.sh -y --prefix=[HPCKit_installation_directory]
+sh HPCKit_26.2.0_Linux-aarch64/install.sh -y --prefix=[HPCKit_installation_directory]
 ```
 
 ### 3. [Set environment variables](https://www.hikunpeng.com/document/detail/zh/kunpenghpcs/hpckit/instg/KunpengHPCKit_install_014.html).
@@ -64,7 +64,7 @@ module load bisheng/compiler5.1.0.2/bishengmodule
 - GCC (Replace the HMPI version number in the example with your actual version.)
 
 ```shell
-module load gcc/hmpi26.0.RC1/release
+module load gcc/hmpi26.2.0/release
 
 export CPATH=[HPCKit_installation_directory]/HPCKit/latest/hmpi/gcc/release/hmpi/include:$CPATH
 
@@ -76,7 +76,7 @@ export LD_LIBRARY_PATH=[HPCKit_installation_directory]/HPCKit/latest/hmpi/hmpi/g
 - BiSheng Compiler (Replace the HMPI version number in the example with your actual version.)
 
 ```shell
-module load bisheng/hmpi26.0.RC1/release
+module load bisheng/hmpi26.2.0/release
 
 export CPATH=[HPCKit_installation_directory]/HPCKit/latest/hmpi/bisheng/release/hmpi/include:$CPATH
 
@@ -90,13 +90,13 @@ export LD_LIBRARY_PATH=[HPCKit_installation_directory]/HPCKit/latest/hmpi/hmpi/b
 - GCC (Replace the KUPL version number in the example with your actual version.)
 
 ```shell
-module load gcc/kupl26.0.RC1/release
+module load gcc/kupl26.2.0/release
 ```
 
 - BiSheng Compiler (Replace the KUPL version number in the example with your actual version.)
 
 ```shell
-module load bisheng/kupl26.0.RC1/release
+module load bisheng/kupl26.2.0/release
 ```
 
 ### 4. Install the dependencies required for build.
@@ -124,9 +124,9 @@ After building the source, run the following commands in the KuQCD main director
 ```shell
 cd test
 
-module unload bisheng/hmpi26.0.RC1/release
+module unload bisheng/hmpi26.2.0/release
 
-module load gcc/hmpi26.0.RC1/release
+module load gcc/hmpi26.2.0/release
 
 sh build.sh
 
@@ -140,9 +140,9 @@ After building the source, run the following commands in the KuQCD main director
 ```shell
 cd test
 
-module unload gcc/hmpi26.0.RC1/release
+module unload gcc/hmpi26.2.0/release
 
-module load bisheng/hmpi26.0.RC1/release
+module load bisheng/hmpi26.2.0/release
 
 sh build.sh
 

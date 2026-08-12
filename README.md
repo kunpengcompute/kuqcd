@@ -21,11 +21,11 @@
 ### 2. [安装 HPCKit](https://www.hikunpeng.com/document/detail/zh/kunpenghpcs/hpckit/instg/KunpengHPCKit_install_012.html)
 #### 解压 HPCKit 软件包（HPCKit 版本号根据实际情况调整）
 ```
-tar xvf HPCKit_26.0.RC1_Linux-aarch64.tar.gz
+tar xvf HPCKit_26.2.0_Linux-aarch64.tar.gz
 ```
 #### 安装 HPCKit
 ```
-sh HPCKit_26.0.RC1_Linux-aarch64/install.sh -y --prefix=[HPCKit安装目录]
+sh HPCKit_26.2.0_Linux-aarch64/install.sh -y --prefix=[HPCKit安装目录]
 ```
 
 ### 3. 其他前置条件
@@ -54,7 +54,7 @@ yum install cmake
 ```
 
 ### 4.KuQCD编译安装
-KuQCD依赖BiSheng/GCC编译器、HMPI和KUPL，需要预先加载，具体版本号根据HPCKit实际情况调整。这里以26.0.RC1版本HPCKit为例。
+KuQCD依赖BiSheng/GCC编译器、HMPI和KUPL，需要预先加载，具体版本号根据HPCKit实际情况调整。这里以26.2.0版本HPCKit为例。
 
 #### （1）BiSheng编译KuQCD
 ##### 加载 module
@@ -69,7 +69,7 @@ module load bisheng/compiler5.1.0.2/bishengmodule
 
 ##### 加载HMPI环境变量（HMPI版本号根据实际情况调整）
 ```
-module load bisheng/hmpi26.0.RC1/release
+module load bisheng/hmpi26.2.0/release
 
 export CPATH=[HPCKit安装目录]/HPCKit/latest/hmpi/bisheng/release/hmpi/include:$CPATH
 
@@ -80,7 +80,7 @@ export LD_LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/bisheng/release/h
 
 ##### 加载KUPL环境变量（KUPL版本号根据实际情况调整）
 ```
-module load bisheng/kupl26.0.RC1/release
+module load bisheng/kupl26.2.0/release
 ```
 
 ##### 编译KuQCD源码
@@ -103,7 +103,7 @@ module load gcc/compiler12.3.1/gccmodule
 
 ##### 加载HMPI环境变量（HMPI版本号根据实际情况调整）
 ```
-module load gcc/hmpi26.0.RC1/release
+module load gcc/hmpi26.2.0/release
 
 export CPATH=[HPCKit安装目录]/HPCKit/latest/hmpi/gcc/release/hmpi/include:$CPATH
 
@@ -114,7 +114,7 @@ export LD_LIBRARY_PATH=[HPCKit安装目录]/HPCKit/latest/hmpi/gcc/release/hmpi/
 
 ##### 加载KUPL环境变量（KUPL版本号根据实际情况调整）
 ```
-module load gcc/kupl26.0.RC1/release
+module load gcc/kupl26.2.0/release
 ```
 
 ##### 编译KuQCD源码
@@ -130,7 +130,7 @@ sh build.sh
 ```
 cd test
 
-module load bisheng/hmpi26.0.RC1/release
+module load bisheng/hmpi26.2.0/release
 
 sh build.sh
 
@@ -141,7 +141,7 @@ sh run.sh
 ```
 cd test
 
-module load gcc/hmpi26.0.RC1/release
+module load gcc/hmpi26.2.0/release
 
 sh build.sh
 
