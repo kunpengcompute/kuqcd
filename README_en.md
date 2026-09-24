@@ -153,7 +153,7 @@ sh run.sh
 
 If you are familiar with the build and installation process and would like to gain a deeper understanding of the project, please visit the following detailed tutorials:
 
-[KuQCD Developer Guide](https://www.hikunpeng.com/document/detail/zh/kunpenghpcs/hpckit/devg/KunpengHPCKit_developer_211.html): Explore foundational data structures, including spacetime lattices and lattice fields, and master solver functions.
+[KuQCD Developer Guide](docs/zh/KuQCD开发指南.md): Explore foundational data structures, including spacetime lattices and lattice fields, and master solver functions.
 
 ## Directory Structure
 
