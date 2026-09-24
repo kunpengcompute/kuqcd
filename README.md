@@ -152,7 +152,7 @@ sh run.sh
 
 若您已学习编译安装，对本项目有一定认知，并希望深入了解和体验项目，请访问下述详细教程。
 
-[KuQCD开发指南](https://www.hikunpeng.com/document/detail/zh/kunpenghpcs/hpckit/devg/KunpengHPCKit_developer_211.html): 介绍了 KuQCD 中基本数据结构（包括时空格点和格点场），以及求解器相关函数。
+[KuQCD开发指南](docs/zh/KuQCD开发指南.md): 介绍了 KuQCD 中基本数据结构（包括时空格点和格点场），以及求解器相关函数。
 
 ## 🔍目录结构
 
