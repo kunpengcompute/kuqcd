@@ -63,10 +63,10 @@ lattbase结构体参数如下表所示。
 |Nbatch|unsigned int|x方向批量大小|
 |myRank|int|当前进程所属进程号|
 |np|int|进程数|
-|prec|KuQCDPrecision|精度选择，有如下值：<br>KUQCD_HALF<br>KUQCD_SINGLE<br>KUQCD_DOUBLE|
-|gauge_order|KuQCDGaugeOrder|是否做x方向批量，有如下值：<br>KUQCD_NORMAL_ORDER<br>KUQCD_BATCH_ORDER|
-|rankOrder|KuQCDRankOrder|格点排布顺序，有如下值：<br>XYZT_ORDER<br>TZYX_ORDER|
-|site_subset|KuQCDSiteSubset|子格点，有如下值：<br>KUQCD_EVEN<br>KUQCD_ODD<br>KUQCD_ALL|
+|prec|KuQCDPrecision|精度选择，有如下值：<ul><li>KUQCD_HALF</li><li>KUQCD_SINGLE</li><li>KUQCD_DOUBLE</li></ul>|
+|gauge_order|KuQCDGaugeOrder|是否做x方向批量，有如下值：<ul><li>KUQCD_NORMAL_ORDER</li><li>KUQCD_BATCH_ORDER</li></ul>|
+|rankOrder|KuQCDRankOrder|格点排布顺序，有如下值：<ul><li>XYZT_ORDER</li><li>TZYX_ORDER</li></ul>|
+|site_subset|KuQCDSiteSubset|子格点，有如下值：<ul><li>KUQCD_EVEN</li><li>KUQCD_ODD</li><li>KUQCD_ALL</li></ul>|
 |myIdx|Index|格点所在的index|
 
 #### CommBase<a name="ZH-CN_TOPIC_0000002458106157" id="ZH-CN_TOPIC_0000002458106157"></a>
@@ -212,10 +212,10 @@ KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param);
 |halo_depth|int|halo区大小，对于旋量场取0；对于规范场，若做rhmc，取3，只做inverter，取0。|
 |od|KuQCDRankOrder|进程排布顺序，可取KUQCD_XYZT_ORDER（x方向快变）或KUQCD_TZYX_ORDER（t方向快变）|
 |site_subset|KuQCDSiteSubset|子格点，可取值KUQCD_EVEN, KUQCD_ODD, KUQCD_ALL|
-|gauge_order|KuQCDGaugeOrder|数据排布顺序，可取KUQCD_NORMAL_ORDER（对于旋量场(even-odd)-y-z-y-x-Ns-3-(real-imag)，对于规范场(even-odd)-t-z-y-x-direction-col-row-(real-imag)）<br>和KUQCD_BATCH_ORDER（对于旋量场(even-odd)-y-z-y-(x/Nbatch)-Ns-3-(real*Nbatch-imag*Nbatch)，对于规范场(even-odd)-t-z-y-(x/Nbatch)-direction-col-row-(real*Nbatch-imag*Nbatch)）|
+|gauge_order|KuQCDGaugeOrder|数据排布顺序，可取：<ul><li>KUQCD_NORMAL_ORDER（对于旋量场(even-odd)-y-z-y-x-Ns-3-(real-imag)，对于规范场(even-odd)-t-z-y-x-direction-col-row-(real-imag)）</li><li>KUQCD_BATCH_ORDER（对于旋量场(even-odd)-y-z-y-(x/Nbatch)-Ns-3-(real*Nbatch-imag*Nbatch)，对于规范场(even-odd)-t-z-y-(x/Nbatch)-direction-col-row-(real*Nbatch-imag*Nbatch)）</li></ul>|
 |prec|KuQCDPrecision|精度，可取KUQCD_SINGLE_PRECISION和KUQCD_DOUBLE_PRECISION|
-|link_type|KuQCDLinkType|链接类型，取值有KUQCD_WILSON_LINK（暂不支持）<br>KUQCD_FAT_LINK<br>KUQCD_LONG_LINK|
-|recon|KuQCDReconstructType|SU(3)矩阵压缩方式，取值有KUQCD_GAUGE_RECON_NO<br>KUQCD_GAUGE_RECON_U14（暂不支持）<br>KUQCD_GAUGE_RECON_12（暂不支持）<br>KUQCD_GAUGE_RECON_8（暂不支持）|
+|link_type|KuQCDLinkType|链接类型，取值有：<ul><li>KUQCD_WILSON_LINK（暂不支持）</li><li>KUQCD_FAT_LINK</li><li>KUQCD_LONG_LINK</li></ul>|
+|recon|KuQCDReconstructType|SU(3)矩阵压缩方式，取值有：<ul><li>KUQCD_GAUGE_RECON_NO</li><li>KUQCD_GAUGE_RECON_U14（暂不支持）</li><li>KUQCD_GAUGE_RECON_12（暂不支持）</li><li>KUQCD_GAUGE_RECON_8（暂不支持）</li></ul>|
 
 **返回值<a name="section65022020475"></a>**
 
@@ -248,10 +248,10 @@ KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *
 
 |字段名|类型|描述|
 |--|--|--|
-|dslash_type|KuQCDDslashType|狄拉克算子类型，取值有KUQCD_WILSON_DIRAC（暂不支持）<br>KUQCD_WILSONPC_DIRAC（暂不支持）<br>KUQCD_HISQ_DIRAC<br>KUQCD_HISQPC_DIRAC|
-|inverter_type|KuQCDInverterType|求解器类型，取值有KUQCD_CG（暂不支持）<br>KUQCD_CGM<br>KUQCD_BICGSTAB（暂不支持）<br>KUQCD_BICGSTABM（暂不支持）|
-|matpc_type|KuQCDMatPCType|预条件子类型，取值有KUQCD_EVEN_EVEN<br>KUQCD_ODD_ODD|
-|prec|KuQCDPrecision|求解精度，需要和KuQCDGaugeParam参数的值保持一致，取值有KUQCD_HALF（暂不支持）<br>KUQCD_SINGLE<br>KUQCD_DOUBLE|
+|dslash_type|KuQCDDslashType|狄拉克算子类型，取值有：<ul><li>KUQCD_WILSON_DIRAC（暂不支持）</li><li>KUQCD_WILSONPC_DIRAC（暂不支持）</li><li>KUQCD_HISQ_DIRAC</li><li>KUQCD_HISQPC_DIRAC</li></ul>|
+|inverter_type|KuQCDInverterType|求解器类型，取值有：<ul><li>KUQCD_CG（暂不支持）</li><li>KUQCD_CGM</li><li>KUQCD_BICGSTAB（暂不支持）</li><li>KUQCD_BICGSTABM（暂不支持）</li></ul>|
+|matpc_type|KuQCDMatPCType|预条件子类型，取值有：<ul><li>KUQCD_EVEN_EVEN</li><li>KUQCD_ODD_ODD</li></ul>|
+|prec|KuQCDPrecision|求解精度，需要和KuQCDGaugeParam参数的值保持一致，取值有：<ul><li>KUQCD_HALF（暂不支持）</li><li>KUQCD_SINGLE</li><li>KUQCD_DOUBLE</li></ul>|
 |iter|int|迭代次数，求解完之后读取该值可获取求解迭代的次数|
 |num_shift|int|解的个数|
 |max_iter|int|最大迭代次数|
