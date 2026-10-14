@@ -1,8 +1,8 @@
 # KuQCD开发指南<a name="ZH-CN_TOPIC_0000002424460372"></a>
 
--   **[总述](#ZH-CN_TOPIC_0000002458154593)**
+- **[总述](#ZH-CN_TOPIC_0000002458154593)**
 
--   **[KuQCD函数说明](#ZH-CN_TOPIC_0000002458074433)**
+- **[KuQCD函数说明](#ZH-CN_TOPIC_0000002458074433)**
 
 ## 总述<a name="ZH-CN_TOPIC_0000002458154593" id="ZH-CN_TOPIC_0000002458154593"></a>
 
@@ -10,27 +10,27 @@ KuQCD是基于鲲鹏平台的格点量子色动力学领域加速库，采用C/C
 
 ## KuQCD函数说明<a name="ZH-CN_TOPIC_0000002458074433" id="ZH-CN_TOPIC_0000002458074433"></a>
 
--   **[数据结构](#ZH-CN_TOPIC_0000002458171977)**
+- **[数据结构](#ZH-CN_TOPIC_0000002458171977)**
 
--   **[函数定义](#ZH-CN_TOPIC_0000002424493252)**
+- **[函数定义](#ZH-CN_TOPIC_0000002424493252)**
 
 ### 数据结构<a name="ZH-CN_TOPIC_0000002458171977" id="ZH-CN_TOPIC_0000002458171977"></a>
 
--   **[Lattice](#ZH-CN_TOPIC_0000002461238893)**
+- **[Lattice](#ZH-CN_TOPIC_0000002461238893)**
 
--   **[LattBase](#ZH-CN_TOPIC_0000002424507534)**
+- **[LattBase](#ZH-CN_TOPIC_0000002424507534)**
 
--   **[CommBase](#ZH-CN_TOPIC_0000002458106157)**
+- **[CommBase](#ZH-CN_TOPIC_0000002458106157)**
 
--   **[SpinorField](#ZH-CN_TOPIC_0000002424667406)**
+- **[SpinorField](#ZH-CN_TOPIC_0000002424667406)**
 
--   **[GaugeField](#ZH-CN_TOPIC_0000002458186257)**
+- **[GaugeField](#ZH-CN_TOPIC_0000002458186257)**
 
 #### Lattice<a name="ZH-CN_TOPIC_0000002461238893" id="ZH-CN_TOPIC_0000002461238893"></a>
 
-lattice为格点，结构体里参数如下表所示。
+lattice为格点，结构体里参数如[表1](#table-1)所示。
 
-**表 1**  Lattice结构体
+**表1** Lattice结构体<a name="table-1" id="table-1"></a>
 
 |变量名|类型|描述|
 |--|--|--|
@@ -42,9 +42,9 @@ lattice为格点，结构体里参数如下表所示。
 
 #### LattBase<a name="ZH-CN_TOPIC_0000002424507534" id="ZH-CN_TOPIC_0000002424507534"></a>
 
-lattbase结构体参数如下表所示。
+LattBase结构体参数如[表2](#table-2)所示。
 
-**表 1**  LattBase结构体
+**表2** LattBase结构体<a name="table-2" id="table-2"></a>
 
 |变量名|类型|描述|
 |--|--|--|
@@ -71,9 +71,9 @@ lattbase结构体参数如下表所示。
 
 #### CommBase<a name="ZH-CN_TOPIC_0000002458106157" id="ZH-CN_TOPIC_0000002458106157"></a>
 
-CommBase结构体如表CommBase结构体所示，仅规范场用到
+CommBase结构体如[表3](#table-3)所示，仅规范场用到。
 
-**表 1**  CommBase结构体
+**表3** CommBase结构体<a name="table-3" id="table-3"></a>
 
 |变量名|类型|描述|
 |--|--|--|
@@ -98,9 +98,9 @@ CommBase结构体如表CommBase结构体所示，仅规范场用到
 
 #### SpinorField<a name="ZH-CN_TOPIC_0000002424667406" id="ZH-CN_TOPIC_0000002424667406"></a>
 
-SpinorField为旋量场，属于模板类，模板的具体内容如表SpinorField模板所示
+SpinorField为旋量场，属于模板类，模板的具体内容如[表4](#table-4)所示。
 
-**表 1**  SpinorField模板
+**表4** SpinorField模板<a name="table-4" id="table-4"></a>
 
 |模板名|类型|描述|
 |--|--|--|
@@ -109,9 +109,9 @@ SpinorField为旋量场，属于模板类，模板的具体内容如表SpinorFie
 |Ns|int|旋量场分量数，对于Wilson型费米子为4，对于Stagger型费米子为1|
 
 
-SpinorField的参数的具体内容如表SpinorField参数所示
+SpinorField的参数的具体内容如[表5](#table-5)所示。
 
-**表 2**  SpinorField参数
+**表5** SpinorField参数<a name="table-5" id="table-5"></a>
 
 |变量名|类型|描述|
 |--|--|--|
@@ -122,9 +122,9 @@ SpinorField的参数的具体内容如表SpinorField参数所示
 
 #### GaugeField<a name="ZH-CN_TOPIC_0000002458186257" id="ZH-CN_TOPIC_0000002458186257"></a>
 
-GaugeField为规范场，属于模板类，模板的具体内容如表GaugeField模板所示
+GaugeField为规范场，属于模板类，模板的具体内容如[表6](#table-6)所示。
 
-**表 1**  GaugeField模板
+**表6** GaugeField模板<a name="table-6" id="table-6"></a>
 
 |模板名|类型|描述|
 |--|--|--|
@@ -133,9 +133,9 @@ GaugeField为规范场，属于模板类，模板的具体内容如表GaugeField
 |Recon|KuQCDGaugeReconstruct|SU(3)矩阵压缩方案，目前仅可取值KUQCD_RECON_NO|
 
 
-GaugeField的参数的具体内容如表GaugeField参数所示
+GaugeField的参数的具体内容如[表7](#table-7)所示。
 
-**表 2**  GaugeField参数
+**表7** GaugeField参数<a name="table-7" id="table-7"></a>
 
 |变量名|类型|描述|
 |--|--|--|
@@ -153,17 +153,17 @@ GaugeField的参数的具体内容如表GaugeField参数所示
 
 ### 函数定义<a name="ZH-CN_TOPIC_0000002424493252" id="ZH-CN_TOPIC_0000002424493252"></a>
 
--   **[kuqcd_init](#ZH-CN_TOPIC_0000002424667410)**
+- **[kuqcd_init](#ZH-CN_TOPIC_0000002424667410)**
 
--   **[kuqcd_load_gaugefield](#ZH-CN_TOPIC_0000002424507542)**
+- **[kuqcd_load_gaugefield](#ZH-CN_TOPIC_0000002424507542)**
 
--   **[kuqcd_solve_multishift](#ZH-CN_TOPIC_0000002458106165)**
+- **[kuqcd_solve_multishift](#ZH-CN_TOPIC_0000002458106165)**
 
--   **[kuqcd_gauge_free](#ZH-CN_TOPIC_0000002424667414)**
+- **[kuqcd_gauge_free](#ZH-CN_TOPIC_0000002424667414)**
 
--   **[kuqcd_end](#ZH-CN_TOPIC_0000002458186269)**
+- **[kuqcd_end](#ZH-CN_TOPIC_0000002458186269)**
 
--   **[示例](#ZH-CN_TOPIC_0000002461420081)**
+- **[示例](#ZH-CN_TOPIC_0000002461420081)**
 
 #### kuqcd_init<a name="ZH-CN_TOPIC_0000002424667410" id="ZH-CN_TOPIC_0000002424667410"></a>
 
@@ -202,9 +202,9 @@ KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param);
 |参数名|类型|描述|输入/输出|
 |--|--|--|--|
 |h_gauge|void *|规范场的数据|输入|
-|param|KuQCDGaugeParam *|规范场的配置选项，具体内容如表1所示|输入|
+|param|KuQCDGaugeParam *|规范场的配置选项，具体内容如[表8](#table-8)所示|输入|
 
-**表 1**  KuQCDGaugeParam结构体字段描述
+**表8** KuQCDGaugeParam结构体字段描述<a name="table-8" id="table-8"></a>
 
 |字段名|类型|描述|
 |--|--|--|
@@ -242,9 +242,9 @@ KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *
 |--|--|--|--|
 |_hp_x|void **|指向多偏移的解数据|输入/输出|
 |_hp_b|void *|指向源数据|输入|
-|param|KuQCDInvertParam *|求解进行配置选项，具体内容如表1所示|输入|
+|param|KuQCDInvertParam *|求解进行配置选项，具体内容如[表9](#table-9)所示|输入|
 
-**表 1**  KuQCDInvertParam结构体字段描述
+**表9** KuQCDInvertParam结构体字段描述<a name="table-9" id="table-9"></a>
 
 |字段名|类型|描述|
 |--|--|--|
