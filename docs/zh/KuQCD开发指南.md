@@ -1,12 +1,38 @@
 # KuQCD开发指南<a name="ZH-CN_TOPIC_0000002424460372"></a>
 
+本文档介绍KuQCD加速库的开发指南，提供基于鲲鹏平台的格点量子色动力学（Lattice QCD，LQCD）加速库的数据结构定义与函数接口说明，适用于在鲲鹏平台上进行格点QCD应用开发的用户。
+
 - **[总述](#ZH-CN_TOPIC_0000002458154593)**
 
 - **[KuQCD函数说明](#ZH-CN_TOPIC_0000002458074433)**
 
 ## 总述<a name="ZH-CN_TOPIC_0000002458154593" id="ZH-CN_TOPIC_0000002458154593"></a>
 
-KuQCD是基于鲲鹏平台的格点量子色动力学领域加速库，采用C/C++实现，针对求解器等功能进行优化，并提供相应接口，以便在应用中使用。目前KuQCD仅支持在鲲鹏920新型号上使用，依赖KUPL，支持毕昇编译器和gcc编译器。
+KuQCD（Kunpeng Quantum Chromodynamics，鲲鹏量子色动力学加速库）是基于鲲鹏平台的格点量子色动力学（Lattice QCD，LQCD）领域加速库，采用C/C++实现，针对求解器等功能进行优化，并提供相应接口，以便在应用中使用。
+
+格点量子色动力学（LQCD）是将量子色动力学（QCD）在离散时空格点上数值求解的理论方法，是研究强相互作用基本性质的重要计算工具。KuQCD针对LQCD计算中的核心求解器进行优化，利用鲲鹏处理器的向量和矩阵运算能力加速费米子矩阵求逆等关键计算步骤。
+
+**功能特性**
+
+- 支持HISQ（Highly Improved Staggered Quark）费米子作用量的多偏移求解
+- 提供旋量场（SpinorField）和规范场（GaugeField）的数据结构抽象
+- 支持单精度（float）和双精度（double）计算
+- 支持多进程并行通信（MPI）
+
+**运行环境**
+
+- 硬件：鲲鹏920处理器
+- 操作系统：openEuler、CentOS、Ubuntu等主流Linux发行版
+- 依赖库：KUPL（Kunpeng Unified Parallel Library，鲲鹏统一并行库）
+- 编译器：毕昇编译器或gcc编译器
+- 运行时需通过MPI启动多进程
+
+**约束与限制**
+
+- 目前仅支持在鲲鹏920处理器上使用
+- Wilson型费米子和部分狄拉克算子暂不支持（详见各参数说明中的"暂不支持"标记）
+- 求解器仅支持CGM（CG Multi-shift）类型，其他类型暂不支持
+- 半精度（KUQCD_HALF）暂不支持
 
 ## KuQCD函数说明<a name="ZH-CN_TOPIC_0000002458074433" id="ZH-CN_TOPIC_0000002458074433"></a>
 
@@ -59,12 +85,12 @@ LattBase结构体参数如[表2](#table-2)所示。
 |lenFull|size_t|根据site_subset，为子进程有halo总格点大小|
 |lenBulk|size_t|根据site_subset，为子进程无halo总格点大小|
 |gridDim|array<unsigned short, 4>|各维度进程切分策略|
-|haloDepth|unsigned short|halo的深度，向量时设置为0，矩阵时为3|
-|Nbatch|unsigned int|x方向批量大小|
+|haloDepth|unsigned short|halo的深度，旋量场时设置为0，规范场时为3|
+|Nbatch|unsigned int|x方向批量大小，对于float可为1或16，对于double为1|
 |myRank|int|当前进程所属进程号|
 |np|int|进程数|
 |prec|KuQCDPrecision|精度选择，有如下值：<ul><li>KUQCD_HALF</li><li>KUQCD_SINGLE</li><li>KUQCD_DOUBLE</li></ul>|
-|gauge_order|KuQCDGaugeOrder|是否做x方向批量，有如下值：<ul><li>KUQCD_NORMAL_ORDER</li><li>KUQCD_BATCH_ORDER</li></ul>|
+|gauge_order|KuQCDGaugeOrder|数据排布顺序，有如下值：<ul><li>KUQCD_NORMAL_ORDER</li><li>KUQCD_BATCH_ORDER</li></ul>|
 |rankOrder|KuQCDRankOrder|格点排布顺序，有如下值：<ul><li>XYZT_ORDER</li><li>TZYX_ORDER</li></ul>|
 |site_subset|KuQCDSiteSubset|子格点，有如下值：<ul><li>KUQCD_EVEN</li><li>KUQCD_ODD</li><li>KUQCD_ALL</li></ul>|
 |myIdx|Index|格点所在的index|
@@ -106,7 +132,7 @@ SpinorField为旋量场，属于模板类，模板的具体内容如[表4](#tabl
 |--|--|--|
 |T|typename|旋量场的数据类型，取值可为float,double|
 |Nbatch|int|x方向批量大小，对于float可为1或16，对于double为1|
-|Ns|int|旋量场分量数，对于Wilson型费米子为4，对于Stagger型费米子为1|
+|Ns|int|旋量场分量数，对于Wilson型费米子为4，对于Stagger型费米子为1。Wilson型费米子和Stagger型费米子是LQCD中两种常用的费米子离散化方案，Wilson型保留旋量对称性但计算量较大，Stagger型减少自由度以提高计算效率|
 
 
 SpinorField的参数的具体内容如[表5](#table-5)所示。
@@ -117,8 +143,8 @@ SpinorField的参数的具体内容如[表5](#table-5)所示。
 |--|--|--|
 |latBase|LattBase &|所用到的格点|
 |data|ColorSpinor<T,Nbatch>|数据|
-|locSize|int|每个时空格点储存浮点数个数|
-|length|size_t|总时空格点数，考虑奇偶格点|
+|locSize|int|每个时空格点储存浮点数个数，对于旋量场为Ns\*3\*2（分量数\*色荷数\*实虚部），对于规范场为4\*3\*3\*2（方向数\*行\*列\*实虚部）|
+|length|size_t|总时空格点数，考虑奇偶格点，值为V/2|
 
 #### GaugeField<a name="ZH-CN_TOPIC_0000002458186257" id="ZH-CN_TOPIC_0000002458186257"></a>
 
@@ -130,7 +156,7 @@ GaugeField为规范场，属于模板类，模板的具体内容如[表6](#table
 |--|--|--|
 |T|typename|规范场的数据类型，取值可为float,double|
 |Nbatch|int|x方向批量大小，对于float可为1或16，对于double为1|
-|Recon|KuQCDGaugeReconstruct|SU(3)矩阵压缩方案，目前仅可取值KUQCD_RECON_NO|
+|Recon|KuQCDGaugeReconstruct|SU(3)矩阵压缩方案，目前仅可取值KUQCD_RECON_NO。SU(3)为特殊酉群，是QCD规范群，矩阵压缩方案用于减少规范场数据的存储量|
 
 
 GaugeField的参数的具体内容如[表7](#table-7)所示。
@@ -139,7 +165,7 @@ GaugeField的参数的具体内容如[表7](#table-7)所示。
 
 |变量名|类型|描述|
 |--|--|--|
-|even|SU3<T, Nbatch, Recon>|指向规范场的偶部分|
+|even|SU3<T, Nbatch, Recon>|指向规范场的偶部分。SU3为SU(3)规范群矩阵类型|
 |odd|SU3<T, Nbatch, Recon>|指向规范场的奇部分|
 |comm|CommBase &|规范场通信|
 |commHyperPlane|array<array<Communicator<GaugeT>, 2>, 4>|一维通信子|
@@ -148,8 +174,8 @@ GaugeField的参数的具体内容如[表7](#table-7)所示。
 |commCorner|array<Communicator<GaugeT>, 16>|四维通信子|
 |latBase|LattBase &|所用到的时空格点|
 |data|SU3<T, Nbatch, Recon>*|数据|
-|locSize|int|每个时空格点储存浮点数个数|
-|length|size_t|总时空格点数，全格点|
+|locSize|int|每个时空格点储存浮点数个数，对于规范场为4\*3\*3\*2（方向数\*行\*列\*实虚部）|
+|length|size_t|总时空格点数，全格点，值为V|
 
 ### 函数定义<a name="ZH-CN_TOPIC_0000002424493252" id="ZH-CN_TOPIC_0000002424493252"></a>
 
@@ -167,10 +193,10 @@ GaugeField的参数的具体内容如[表7](#table-7)所示。
 
 #### kuqcd_init<a name="ZH-CN_TOPIC_0000002424667410" id="ZH-CN_TOPIC_0000002424667410"></a>
 
-初始化
+初始化KuQCD运行环境，包括内部状态、内存池和通信资源的初始化。该函数必须在调用其他KuQCD函数之前执行。
 
->![](public_sys-resources/icon-notice.gif) **须知：** 
->程序需要在使用其他函数前调用该函数一次，且只允许调用一次，运行时需添加输入文件，若可执行文件为run.exe，输入文件为input，需用以下命令运行：mpirun <xxx mpi参数> ./run.exe < input
+>![](public_sys-resources/icon-notice.gif) **须知：**
+>程序需要在使用其他函数前调用该函数一次，且只允许调用一次。运行时需添加输入文件，输入文件为文本格式，包含格点参数、进程配置等信息。若可执行文件为run.exe，输入文件为input，需用以下命令运行：mpirun -np 4 ./run.exe < input
 
 **接口定义<a name="section18456193311376"></a>**
 
@@ -208,7 +234,7 @@ KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param);
 
 |字段名|类型|描述|
 |--|--|--|
-|lat|unsigned int [4]|x,y,z,t方向格点数|
+|lat|unsigned int [4]|x,y,z,t方向格点数，各方向格点数需为正整数，实际取值范围取决于内存和计算资源|
 |halo_depth|int|halo区大小，对于旋量场取0；对于规范场，若做rhmc（Rational Hybrid Monte Carlo），取3，只做inverter，取0。|
 |od|KuQCDRankOrder|进程排布顺序，可取KUQCD_XYZT_ORDER（x方向快变）或KUQCD_TZYX_ORDER（t方向快变）|
 |site_subset|KuQCDSiteSubset|子格点，可取值KUQCD_EVEN, KUQCD_ODD, KUQCD_ALL|
@@ -228,7 +254,7 @@ KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param);
 
 #### kuqcd_solve_multishift<a name="ZH-CN_TOPIC_0000002458106165" id="ZH-CN_TOPIC_0000002458106165"></a>
 
-进行求解
+进行多偏移求解。调用此函数前需先调用kuqcd_init完成初始化，再调用kuqcd_load_gaugefield加载规范场数据。典型调用顺序为：kuqcd_init → kuqcd_load_gaugefield → kuqcd_solve_multishift → kuqcd_gauge_free → kuqcd_end。
 
 **接口定义<a name="section18456193311376"></a>**
 
@@ -253,10 +279,10 @@ KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *
 |matpc_type|KuQCDMatPCType|预条件子类型，取值有：<ul><li>KUQCD_EVEN_EVEN</li><li>KUQCD_ODD_ODD</li></ul>|
 |prec|KuQCDPrecision|求解精度，需要和KuQCDGaugeParam参数的值保持一致，取值有：<ul><li>KUQCD_HALF（暂不支持）</li><li>KUQCD_SINGLE</li><li>KUQCD_DOUBLE</li></ul>|
 |iter|int|迭代次数，求解完之后读取该值可获取求解迭代的次数|
-|num_shift|int|解的个数|
-|max_iter|int|最大迭代次数|
-|tol|double|收敛精度|
-|shifts|double *|偏移量数组|
+|num_shift|int|解的个数，需为正整数，与shifts数组长度一致|
+|max_iter|int|最大迭代次数，需为正整数，建议根据问题规模设置，示例中使用6500|
+|tol|double|收敛精度，取值范围为(0, 1)，示例中使用1e-12|
+|shifts|double *|偏移量数组，数组长度需与num_shift一致|
 
 #### kuqcd_gauge_free<a name="ZH-CN_TOPIC_0000002424667414" id="ZH-CN_TOPIC_0000002424667414"></a>
 
@@ -279,6 +305,8 @@ void kuqcd_end();
 ```
 
 #### 示例<a name="ZH-CN_TOPIC_0000002461420081" id="ZH-CN_TOPIC_0000002461420081"></a>
+
+以下示例演示了KuQCD的完整使用流程：初始化、加载规范场、多偏移求解、资源释放。头文件kuqcd.h随KuQCD库发布，编译时需链接KUPL库和MPI库，编译命令示例：`clang++ -std=c++14 test.cpp -lkuqcd -lkupl -lmpi -o run.exe`（毕昇编译器）或`g++ -std=c++14 test.cpp -lkuqcd -lkupl -lmpi -o run.exe`（gcc编译器）。
 
 ```cpp
 #include <omp.h>
@@ -335,8 +363,9 @@ void TestCGMPC(const KuQCDGaugeOrder gauge_order)
     Gagugeoptions.halo_depth = haloDepthGauge;
 
 
+    // 偏移量数组，此处偏移值对应物理参数
     double shifts[num_shift];
-    shifts[0] = 3.67167631338816e-05;
+    shifts[0] = 3.67167631338816e-05;  // HISQ费米子的偏移参数
     FILE* fp;
     float* origin;
     int np = GetNp();
@@ -344,6 +373,7 @@ void TestCGMPC(const KuQCDGaugeOrder gauge_order)
 
     size_t vol = (size_t)nx *ny * nt *nz / Nbatch / (np);
     size_t volh = vol / 2;
+    // 旋量场数据长度：半格点数 * 批量大小 * 6（Ns=1 * 色荷3 * 实虚2）
     size_t spinorLen = volh* Nbatch * 6;
     size_t gaugeLen = vol* Nbatch * 4 * ReconS;
     size_t gaugeLenNaik = vol* Nbatch * 4 * ReconN;
@@ -355,11 +385,13 @@ void TestCGMPC(const KuQCDGaugeOrder gauge_order)
     for(int i = 0; i<(num_shift + 1)*spinorLen+gaugeLen+gaugeLenNaik;i++) {
         origin[i] = 1.0;
     }
+    // 初始化KuQCD运行环境，必须在其他函数前调用
     kuqcd_init();
     float *originSrc = origin;
     float *origingaugeSmeared = &(origin[(num_shift+1)*spinorLen]);
     float *origingaugeNaik = &(origin[(num_shift+1)*spinorLen+gaugeLen]);
 
+    // 加载规范场数据（fat link和long link）
     rootLogger.Info("SpinorFieldSetValues1 done");
     Gagugeoptions.link_type = KUQCD_FAT_LINK;
     Gagugeoptions.recon = ReconS;
@@ -387,6 +419,7 @@ void TestCGMPC(const KuQCDGaugeOrder gauge_order)
         dst[i] = (void *)(dst_value[i]);
     }
 
+    // 执行多偏移求解并计时
     double tStart = MPI_Wtime();
 
     kuqcd_solve_multishift(dst, (void *)originSrc, &invertOpts);
