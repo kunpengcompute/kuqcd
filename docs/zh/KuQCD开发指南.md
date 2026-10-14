@@ -209,11 +209,11 @@ KuQCDStatus kuqcd_load_gaugefield(void *h_gauge, KuQCDGaugeParam *param);
 |字段名|类型|描述|
 |--|--|--|
 |lat|unsigned int [4]|x,y,z,t方向格点数|
-|halo_depth|int|halo区大小，对于旋量场取0；对于规范场，若做rhmc，取3，只做inverter，取0。|
+|halo_depth|int|halo区大小，对于旋量场取0；对于规范场，若做rhmc（Rational Hybrid Monte Carlo），取3，只做inverter，取0。|
 |od|KuQCDRankOrder|进程排布顺序，可取KUQCD_XYZT_ORDER（x方向快变）或KUQCD_TZYX_ORDER（t方向快变）|
 |site_subset|KuQCDSiteSubset|子格点，可取值KUQCD_EVEN, KUQCD_ODD, KUQCD_ALL|
 |gauge_order|KuQCDGaugeOrder|数据排布顺序，可取：<ul><li>KUQCD_NORMAL_ORDER（对于旋量场(even-odd)-y-z-y-x-Ns-3-(real-imag)，对于规范场(even-odd)-t-z-y-x-direction-col-row-(real-imag)）</li><li>KUQCD_BATCH_ORDER（对于旋量场(even-odd)-y-z-y-(x/Nbatch)-Ns-3-(real*Nbatch-imag*Nbatch)，对于规范场(even-odd)-t-z-y-(x/Nbatch)-direction-col-row-(real*Nbatch-imag*Nbatch)）</li></ul>|
-|prec|KuQCDPrecision|精度，可取KUQCD_SINGLE_PRECISION和KUQCD_DOUBLE_PRECISION|
+|prec|KuQCDPrecision|精度，可取KUQCD_SINGLE和KUQCD_DOUBLE|
 |link_type|KuQCDLinkType|链接类型，取值有：<ul><li>KUQCD_WILSON_LINK（暂不支持）</li><li>KUQCD_FAT_LINK</li><li>KUQCD_LONG_LINK</li></ul>|
 |recon|KuQCDReconstructType|SU(3)矩阵压缩方式，取值有：<ul><li>KUQCD_GAUGE_RECON_NO</li><li>KUQCD_GAUGE_RECON_U14（暂不支持）</li><li>KUQCD_GAUGE_RECON_12（暂不支持）</li><li>KUQCD_GAUGE_RECON_8（暂不支持）</li></ul>|
 
