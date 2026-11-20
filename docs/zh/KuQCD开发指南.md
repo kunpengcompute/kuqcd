@@ -268,7 +268,7 @@ KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *
 |--|--|--|--|
 |_hp_x|void **|指向多偏移的解数据|输入/输出|
 |_hp_b|void *|指向源数据|输入|
-|param|KuQCDInvertParam *|求解进行配置选项，具体内容如[表9](#table-9)所示|输入|
+|param|KuQCDInvertParam *|求解配置选项，具体内容如[表9](#table-9)所示|输入|
 
 **表9** KuQCDInvertParam结构体字段描述<a name="table-9" id="table-9"></a>
 
