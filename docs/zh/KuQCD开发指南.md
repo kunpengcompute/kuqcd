@@ -1,6 +1,6 @@
 # KuQCD开发指南<a name="ZH-CN_TOPIC_0000002424460372"></a>
 
-本文档介绍KuQCD加速库的开发指南，提供基于鲲鹏平台的格点量子色动力学（Lattice QCD，LQCD）加速库的数据结构定义与函数接口说明，适用于在鲲鹏平台上进行格点QCD应用开发的用户。
+本文档介绍KuQCD加速库的开发指南，提供基于鲲鹏平台的格点量子色动力学（Lattice QCD，LQCD）加速库的数据结构定义与函数接口说明。
 
 - **[总述](#ZH-CN_TOPIC_0000002458154593)**
 
@@ -268,7 +268,7 @@ KuQCDStatus kuqcd_solve_multishift(void **_hp_x, void *_hp_b, KuQCDInvertParam *
 |--|--|--|--|
 |_hp_x|void **|指向多偏移的解数据|输入/输出|
 |_hp_b|void *|指向源数据|输入|
-|param|KuQCDInvertParam *|求解进行配置选项，具体内容如[表9](#table-9)所示|输入|
+|param|KuQCDInvertParam *|求解配置选项，具体内容如[表9](#table-9)所示|输入|
 
 **表9** KuQCDInvertParam结构体字段描述<a name="table-9" id="table-9"></a>
 
@@ -306,7 +306,19 @@ void kuqcd_end();
 
 #### 示例<a name="ZH-CN_TOPIC_0000002461420081" id="ZH-CN_TOPIC_0000002461420081"></a>
 
-以下示例演示了KuQCD的完整使用流程：初始化、加载规范场、多偏移求解、资源释放。头文件kuqcd.h随KuQCD库发布，编译时需链接KUPL库和MPI库，编译命令示例：`clang++ -std=c++14 test.cpp -lkuqcd -lkupl -lmpi -o run.exe`（毕昇编译器）或`g++ -std=c++14 test.cpp -lkuqcd -lkupl -lmpi -o run.exe`（gcc编译器）。
+以下示例演示了KuQCD的完整使用流程：初始化、加载规范场、多偏移求解、资源释放。头文件kuqcd.h随KuQCD库发布，编译时需链接KUPL库和MPI库。
+
+编译命令示例（毕昇编译器）：
+
+```bash
+clang++ -std=c++14 test.cpp -lkuqcd -lkupl -lmpi -o run.exe
+```
+
+或使用gcc编译器：
+
+```bash
+g++ -std=c++14 test.cpp -lkuqcd -lkupl -lmpi -o run.exe
+```
 
 ```cpp
 #include <omp.h>
@@ -435,3 +447,8 @@ void TestCGMPC(const KuQCDGaugeOrder gauge_order)
 }
 ```
 
+## 修订记录<a name="ZH-CN_TOPIC_0000002461420090" id="ZH-CN_TOPIC_0000002461420090"></a>
+
+|日期|版本|变更说明|
+|--|--|--|
+|2026-06-30|1.0|第一次正式发布|
